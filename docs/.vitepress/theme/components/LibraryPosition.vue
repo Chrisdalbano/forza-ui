@@ -47,7 +47,7 @@ import library from "../../../../packages/vue/package.json";
     </div>
     <div class="source-links reveal">
       <a href="/guide/installation"
-        >Install from a GitHub Release <span>&#8599;</span></a
+        >Install the package <span>&#8599;</span></a
       ><a href="https://github.com/Chrisdalbano/forza-ui"
         >Read the source <span>&#8599;</span></a
       ><a href="/contributing">Contribute <span>&#8599;</span></a

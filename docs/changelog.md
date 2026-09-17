@@ -2,6 +2,8 @@
 
 ## 0.3.3
 
+- Publish the library and source-copy CLI to npm under the @chrisdalbano scope.
+
 - Use Chrisdalbano in public credits and first-party license notices.
 - Read the CLI version from package metadata and support `forza --version`.
 - Add public registry metadata to the library and source-copy CLI packages.

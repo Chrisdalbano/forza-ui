@@ -33,7 +33,7 @@ npm run test:browser
 - `meta`: maintained usage examples and behavior notes.
 - `brand`: SVG master. Generate derivatives with `scripts/brand.mjs`.
 
-Release tarballs are distributed through GitHub Releases. No npm registry publication is claimed. Vue SSR, the static site, and a Nuxt 4.5.2 production consumer are verified. See tests/fixtures/nuxt for the consumer fixture.
+Install from npm with `npm install @chrisdalbano/forza-ui` (or `pnpm add @chrisdalbano/forza-ui`). The source-copy CLI is `@chrisdalbano/forza-ui-cli`. Versioned tarballs are also distributed through GitHub Releases. Vue SSR, the static site, and a Nuxt 4.5.2 production consumer are verified. See tests/fixtures/nuxt for the consumer fixture.
 
 MIT licensed. Third-party notices are preserved. GSAP belongs to the marketing site, not the component package. Not affiliated with Riot Games or Microsoft/Turn 10.
 

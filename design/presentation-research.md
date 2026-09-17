@@ -15,4 +15,4 @@ The previous landing spent too much space describing abstract qualities. Eyebrow
 
 No landing eyebrows. No fabricated customer logos, adoption metrics, awards, or performance comparisons. Version and component count come from source metadata. Use native scrolling; no snap trapping. GSAP stays in the marketing site, loaded after mount and disabled for reduced motion. Content remains visible without animation. Theme changes preserve the sample's state. The component index mounts no demo until requested; the landing mounts only its selected specimen.
 
-The GitHub project is public and MIT licensed. Packages are distributed through GitHub Releases, not npm. Chrisdalbano directs the product and visual work; implementation is AI-assisted. This is independent work, without Riot affiliation or endorsement.
+The GitHub project is public and MIT licensed. At the initial presentation review, packages were distributed through GitHub Releases. Version 0.3.3 subsequently added npm publication for the library and CLI. Chrisdalbano directs the product and visual work; implementation is AI-assisted. This is independent work, without Riot affiliation or endorsement.

@@ -4,11 +4,41 @@ The CLI copies source into your project. It resolves local component imports, in
 
 ## Install
 
-```sh
-npm install -D https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-cli-0.3.3.tgz
+::: code-group
+
+```sh [npm]
+npm install -D @chrisdalbano/forza-ui-cli
 npx forza init
 npx forza add button field dialog
 ```
+
+```sh [pnpm]
+pnpm add -D @chrisdalbano/forza-ui-cli
+pnpm exec forza init
+pnpm exec forza add button field dialog
+```
+
+```sh [Yarn]
+yarn add -D @chrisdalbano/forza-ui-cli
+yarn forza init
+yarn forza add button field dialog
+```
+
+```sh [Bun]
+bun add -d @chrisdalbano/forza-ui-cli
+bunx forza init
+bunx forza add button field dialog
+```
+
+:::
+
+For a one-off command without a local CLI dependency:
+
+```sh
+npx @chrisdalbano/forza-ui-cli@0.3.3 init
+```
+
+The CLI is separate from the prebuilt library package. Use it when you want component source inside your project; you do not need both distribution methods.
 
 `init` writes `forza.config.json`. The default destination is `src/components/forza`. For Nuxt 4:
 
@@ -21,6 +51,7 @@ npx forza add button drawer
 
 | Command                         | Behavior                                  |
 | ------------------------------- | ----------------------------------------- |
+| `forza --version` | Print the installed CLI version |
 | `forza list`                    | List components                           |
 | `forza list --json`             | Read the versioned API manifest           |
 | `forza init --dir src/ui/forza` | Set the source destination                |

@@ -1,34 +1,36 @@
 # Installation
 
-Forza requires Vue 3.5 or later. The current distribution is a versioned GitHub release, not an npm registry publication.
+Forza requires Vue 3.5 or later. Install the library from the npm registry with your preferred package manager.
 
 ## Package managers and registry status
 
-Forza is a built package containing ESM JavaScript, TypeScript declarations, CSS, and Vue source. It is currently distributed as a GitHub Release tarball. It has not been published to the npm registry, so installing by package name alone is not available yet.
+Forza is published as `@chrisdalbano/forza-ui`. The package contains ESM JavaScript, TypeScript declarations, CSS, and Vue source. The source-copy CLI is available separately as `@chrisdalbano/forza-ui-cli`.
 
-npm, pnpm, Yarn, and Bun are package managers. They can install the same package from a release URL; pnpm does not require a separate Forza publication. Choose the command for your application below.
+npm, pnpm, Yarn, and Bun are package managers. They install the same package from the npm registry; pnpm does not require a separate Forza publication. Choose the command for your application below.
 
 ## Install the release
 
 ::: code-group
 
 ```sh [npm]
-npm install https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-0.3.3.tgz
+npm install @chrisdalbano/forza-ui
 ```
 
 ```sh [pnpm]
-pnpm add https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-0.3.3.tgz
+pnpm add @chrisdalbano/forza-ui
 ```
 
 ```sh [Yarn]
-yarn add https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-0.3.3.tgz
+yarn add @chrisdalbano/forza-ui
 ```
 
 ```sh [Bun]
-bun add https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-0.3.3.tgz
+bun add @chrisdalbano/forza-ui
 ```
 
 :::
+
+To pin this release, use `@chrisdalbano/forza-ui@0.3.3`. Versioned archives remain available on [GitHub Releases](https://github.com/Chrisdalbano/forza-ui/releases/tag/v0.3.3).
 
 npm installs the declared peers. If your package manager requires explicit peers:
 

@@ -65,11 +65,41 @@ The CLI copies source into your project. It resolves local component imports, in
 
 ## Install
 
-```sh
-npm install -D https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-cli-0.3.3.tgz
+::: code-group
+
+```sh [npm]
+npm install -D @chrisdalbano/forza-ui-cli
 npx forza init
 npx forza add button field dialog
 ```
+
+```sh [pnpm]
+pnpm add -D @chrisdalbano/forza-ui-cli
+pnpm exec forza init
+pnpm exec forza add button field dialog
+```
+
+```sh [Yarn]
+yarn add -D @chrisdalbano/forza-ui-cli
+yarn forza init
+yarn forza add button field dialog
+```
+
+```sh [Bun]
+bun add -d @chrisdalbano/forza-ui-cli
+bunx forza init
+bunx forza add button field dialog
+```
+
+:::
+
+For a one-off command without a local CLI dependency:
+
+```sh
+npx @chrisdalbano/forza-ui-cli@0.3.3 init
+```
+
+The CLI is separate from the prebuilt library package. Use it when you want component source inside your project; you do not need both distribution methods.
 
 `init` writes `forza.config.json`. The default destination is `src/components/forza`. For Nuxt 4:
 
@@ -82,6 +112,7 @@ npx forza add button drawer
 
 | Command                         | Behavior                                  |
 | ------------------------------- | ----------------------------------------- |
+| `forza --version` | Print the installed CLI version |
 | `forza list`                    | List components                           |
 | `forza list --json`             | Read the versioned API manifest           |
 | `forza init --dir src/ui/forza` | Set the source destination                |
@@ -115,35 +146,37 @@ node packages/cli/bin/forza.mjs add button --cwd ../my-app
 
 # Installation
 
-Forza requires Vue 3.5 or later. The current distribution is a versioned GitHub release, not an npm registry publication.
+Forza requires Vue 3.5 or later. Install the library from the npm registry with your preferred package manager.
 
 ## Package managers and registry status
 
-Forza is a built package containing ESM JavaScript, TypeScript declarations, CSS, and Vue source. It is currently distributed as a GitHub Release tarball. It has not been published to the npm registry, so installing by package name alone is not available yet.
+Forza is published as `@chrisdalbano/forza-ui`. The package contains ESM JavaScript, TypeScript declarations, CSS, and Vue source. The source-copy CLI is available separately as `@chrisdalbano/forza-ui-cli`.
 
-npm, pnpm, Yarn, and Bun are package managers. They can install the same package from a release URL; pnpm does not require a separate Forza publication. Choose the command for your application below.
+npm, pnpm, Yarn, and Bun are package managers. They install the same package from the npm registry; pnpm does not require a separate Forza publication. Choose the command for your application below.
 
 ## Install the release
 
 ::: code-group
 
 ```sh [npm]
-npm install https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-0.3.3.tgz
+npm install @chrisdalbano/forza-ui
 ```
 
 ```sh [pnpm]
-pnpm add https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-0.3.3.tgz
+pnpm add @chrisdalbano/forza-ui
 ```
 
 ```sh [Yarn]
-yarn add https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-0.3.3.tgz
+yarn add @chrisdalbano/forza-ui
 ```
 
 ```sh [Bun]
-bun add https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-0.3.3.tgz
+bun add @chrisdalbano/forza-ui
 ```
 
 :::
+
+To pin this release, use `@chrisdalbano/forza-ui@0.3.3`. Versioned archives remain available on [GitHub Releases](https://github.com/Chrisdalbano/forza-ui/releases/tag/v0.3.3).
 
 npm installs the declared peers. If your package manager requires explicit peers:
 
@@ -361,7 +394,7 @@ It is an early library. Choose it because the components fit your application, n
 | Starting point | A defined visual and motion language | A broader foundation you adapt into your own system |
 | Styling | Scoped CSS variables; no Tailwind requirement | Tailwind-based styling with CSS-variable theming |
 | Component interface | Higher-level wrappers with props, slots, and parent-owned state | More primitive composition and a wider range of components |
-| Delivery | Versioned GitHub package releases or source-copy CLI | Source installation and an established registry ecosystem |
+| Delivery | npm package, versioned GitHub releases, or source-copy CLI | Source installation and an established registry ecosystem |
 | Current scope | 25 components in an early 0.x release | A substantially broader catalog, including calendars, command menus, and sidebars |
 
 Both offer editable source, typed Vue code, and accessible primitives through Reka UI. Source ownership, CSS variables, and AI-readable code are not exclusive advantages of Forza. Neither primitive selection nor automated checks removes the need to test accessibility in your finished application.
@@ -378,7 +411,7 @@ Choose shadcn-vue when breadth, registry integrations, or more direct primitive 
 
 ## What is available today
 
-The [component index](/components) and [workbench](/playground) use the current library catalog. Installation uses versioned GitHub Release assets; the package is **not published to npm**. The [installation guide](/guide/installation) contains the supported commands.
+The [component index](/components) and [workbench](/playground) use the current library catalog. The library and source-copy CLI are published to npm. Versioned GitHub Release assets are also available. The [installation guide](/guide/installation) contains the supported commands.
 
 The marketing site's GSAP choreography is separate from the library. Installing a button does not install the landing page's animation system. Component motion uses CSS, Reka primitives, AutoAnimate for list changes, and Embla for the carousel where appropriate.
 

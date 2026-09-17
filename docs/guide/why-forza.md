@@ -11,7 +11,7 @@ It is an early library. Choose it because the components fit your application, n
 | Starting point | A defined visual and motion language | A broader foundation you adapt into your own system |
 | Styling | Scoped CSS variables; no Tailwind requirement | Tailwind-based styling with CSS-variable theming |
 | Component interface | Higher-level wrappers with props, slots, and parent-owned state | More primitive composition and a wider range of components |
-| Delivery | Versioned GitHub package releases or source-copy CLI | Source installation and an established registry ecosystem |
+| Delivery | npm package, versioned GitHub releases, or source-copy CLI | Source installation and an established registry ecosystem |
 | Current scope | 25 components in an early 0.x release | A substantially broader catalog, including calendars, command menus, and sidebars |
 
 Both offer editable source, typed Vue code, and accessible primitives through Reka UI. Source ownership, CSS variables, and AI-readable code are not exclusive advantages of Forza. Neither primitive selection nor automated checks removes the need to test accessibility in your finished application.
@@ -28,7 +28,7 @@ Choose shadcn-vue when breadth, registry integrations, or more direct primitive 
 
 ## What is available today
 
-The [component index](/components) and [workbench](/playground) use the current library catalog. Installation uses versioned GitHub Release assets; the package is **not published to npm**. The [installation guide](/guide/installation) contains the supported commands.
+The [component index](/components) and [workbench](/playground) use the current library catalog. The library and source-copy CLI are published to npm. Versioned GitHub Release assets are also available. The [installation guide](/guide/installation) contains the supported commands.
 
 The marketing site's GSAP choreography is separate from the library. Installing a button does not install the landing page's animation system. Component motion uses CSS, Reka primitives, AutoAnimate for list changes, and Embla for the carousel where appropriate.
 
