@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.3
+
+- Use Chrisdalbano in public credits and first-party license notices.
+- Read the CLI version from package metadata and support `forza --version`.
+- Add public registry metadata to the library and source-copy CLI packages.
+- Document installation with npm, pnpm, Yarn, and Bun.
+- Refine the presentation with live specimens, a searchable component index, and a slash entrance for the hero mark.
+
 ## 0.3.2
 
 - Prevent duplicate scrollbar compensation when menus, selects, and modal overlays open on the documentation site. Document the stable-gutter integration for applications.

@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 import { createHighlighter } from "shiki";
 import { format } from "prettier";
 import { createChecker } from "vue-component-meta";
+const { version } = JSON.parse(await readFile("packages/vue/package.json", "utf8"));
 const catalog = JSON.parse(await readFile("meta/components.json", "utf8"));
 const checker = createChecker(resolve("tsconfig.json"), {
   schema: false,
@@ -98,7 +99,7 @@ for (const item of catalog) {
 }
 const manifest = {
   schemaVersion: 1,
-  version: "0.3.2",
+  version,
   framework: "Vue 3.5+",
   package: "@chrisdalbano/forza-ui",
   themeClass: "fz-theme",
@@ -119,7 +120,7 @@ await writeFile(
   JSON.stringify(manifest, null, 2),
 );
 const pages = (await readdir("docs/guide")).filter((n) => n.endsWith(".md"));
-let full = "# Forza UI 0.3.2\n\n";
+let full = `# Forza UI ${version}\n\n`;
 for (const name of pages)
   full += (await readFile("docs/guide/" + name, "utf8")) + "\n\n";
 for (const c of components)
@@ -136,7 +137,7 @@ for (const c of components)
 await writeFile("docs/public/llms-full.txt", full);
 await writeFile(
   "docs/public/llms.txt",
-  "# Forza UI\n\n> Typed Vue 3.5 components with scoped CSS themes.\n\n- [Full reference](https://forzaui.web.app/llms-full.txt)\n- [Machine API](https://forzaui.web.app/component-manifest.json)\n- [Installation](https://forzaui.web.app/guide/installation)\n- [AI contract](https://forzaui.web.app/guide/ai)\n- [Source](https://github.com/Chrisdalbano/forza-ui)\n",
+  "# Forza UI\n\n> Typed Vue 3.5 components with scoped CSS themes.\n\n- [Full reference](https://forzaui.chrisdalbano.com/llms-full.txt)\n- [Machine API](https://forzaui.chrisdalbano.com/component-manifest.json)\n- [Installation](https://forzaui.chrisdalbano.com/guide/installation)\n- [AI contract](https://forzaui.chrisdalbano.com/guide/ai)\n- [Source](https://github.com/Chrisdalbano/forza-ui)\n",
 );
 console.log(
   "Generated " +

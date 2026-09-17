@@ -1,6 +1,6 @@
 {
   "name": "@chrisdalbano/forza-ui-cli",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "type": "module",
   "license": "MIT",
   "bin": {
@@ -14,5 +14,20 @@
   ],
   "engines": {
     "node": ">=20"
+  },
+  "description": "Source-copy CLI for the Forza UI Vue component library.",
+  "author": "Chrisdalbano",
+  "homepage": "https://forzaui.chrisdalbano.com",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/Chrisdalbano/forza-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Chrisdalbano/forza-ui.git",
+    "directory": "packages/cli"
   }
 }

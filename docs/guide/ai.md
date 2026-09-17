@@ -15,8 +15,8 @@ API metadata is extracted from Vue source with Vue Language Tools. Examples and 
 ## A useful prompt
 
 ```text
-Use Forza UI 0.3.2 and Vue 3.5 with script setup and TypeScript.
-Read https://forzaui.web.app/llms-full.txt and the component manifest.
+Use Forza UI 0.3.3 and Vue 3.5 with script setup and TypeScript.
+Read https://forzaui.chrisdalbano.com/llms-full.txt and the component manifest.
 Use documented exports only. Keep business state in the parent.
 Import the stylesheet once and wrap the UI in .fz-theme.
 Use controlled models, stable IDs, visible labels and explicit events.

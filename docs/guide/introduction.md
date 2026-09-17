@@ -12,7 +12,7 @@ Forza is a Vue component library for application interfaces. It combines a disti
 
 ## Design and ownership
 
-Forza UI is an independent project by Christian D'Albano, developed with AI assistance. Its components grew out of a design exploration for BuildValue. The source is MIT licensed. It is not affiliated with Riot Games.
+Forza UI is an independent project by Chrisdalbano, developed with AI assistance. Its components grew out of a design exploration for BuildValue. The source is MIT licensed. It is not affiliated with Riot Games.
 
 ## Choose your workflow
 

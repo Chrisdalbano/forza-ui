@@ -32,6 +32,18 @@ export default defineConfig({
   description:
     "Vue components with character. Typed, themeable, and built for real application workflows.",
   cleanUrls: true,
+  transformPageData(pageData) {
+    if (pageData.relativePath === "404.md") return;
+    const path = pageData.relativePath
+      .replace(/(?:^|\/)index\.md$/, "/")
+      .replace(/\.md$/, "");
+    const url = new URL(path, "https://forzaui.chrisdalbano.com/").href;
+    pageData.frontmatter.head ??= [];
+    pageData.frontmatter.head.push(
+      ["link", { rel: "canonical", href: url }],
+      ["meta", { property: "og:url", content: url }],
+    );
+  },
   markdown: {
     lineNumbers: true,
     theme: { light: "github-light", dark: "github-dark-default" },
@@ -49,12 +61,12 @@ export default defineConfig({
       "meta",
       {
         property: "og:image",
-        content: "https://forzaui.web.app/brand/social.png",
+        content: "https://forzaui.chrisdalbano.com/brand/social.png",
       },
     ],
     ["meta", { name: "theme-color", content: "#101416" }],
   ],
-  sitemap: { hostname: "https://forzaui.web.app" },
+  sitemap: { hostname: "https://forzaui.chrisdalbano.com" },
   vite: {
     resolve: {
       alias: {
@@ -118,7 +130,7 @@ export default defineConfig({
     },
     footer: {
       message: "Released under the MIT License. Independent work.",
-      copyright: "Copyright 2026 Christian D'Albano",
+      copyright: "Copyright 2026 Chrisdalbano",
     },
   },
 });

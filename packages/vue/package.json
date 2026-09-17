@@ -1,6 +1,6 @@
 {
   "name": "@chrisdalbano/forza-ui",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -32,5 +32,15 @@
     "@lucide/vue": "^1.47.0",
     "@formkit/auto-animate": "^0.10.0",
     "embla-carousel-vue": "^8.6.0"
+  },
+  "description": "Vue components with scoped themes, typed APIs, and application motion.",
+  "author": "Chrisdalbano",
+  "homepage": "https://forzaui.chrisdalbano.com",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/Chrisdalbano/forza-ui/issues"
   }
 }

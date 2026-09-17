@@ -36,9 +36,18 @@ async function within(base, path) {
     throw Error("Symlink target escapes the project.");
 }
 try {
+  const { version } = JSON.parse(
+    await readFile(new URL("../package.json", import.meta.url), "utf8"),
+  );
+  if (command === "--version") {
+    console.log(version);
+    process.exit(0);
+  }
   if (command === "help" || command === "--help") {
     console.log(
-      "Forza UI CLI 0.3.0\n\nforza init [--dir src/components/forza] [--cwd project] [--dry-run]\nforza add button dialog [--cwd project] [--dry-run] [--force]\nforza list [--json]\nforza doctor [--cwd project]\n\nNo network requests or package installs. Existing edits are preserved unless --force is explicit.",
+      "Forza UI CLI " +
+        version +
+        "\n\nforza init [--dir src/components/forza] [--cwd project] [--dry-run]\nforza add button dialog [--cwd project] [--dry-run] [--force]\nforza list [--json]\nforza doctor [--cwd project]\n\nNo network requests or package installs. Existing edits are preserved unless --force is explicit.",
     );
     process.exit(0);
   }

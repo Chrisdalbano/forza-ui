@@ -2,8 +2,8 @@
 
 > Typed Vue 3.5 components with scoped CSS themes.
 
-- [Full reference](https://forzaui.web.app/llms-full.txt)
-- [Machine API](https://forzaui.web.app/component-manifest.json)
-- [Installation](https://forzaui.web.app/guide/installation)
-- [AI contract](https://forzaui.web.app/guide/ai)
+- [Full reference](https://forzaui.chrisdalbano.com/llms-full.txt)
+- [Machine API](https://forzaui.chrisdalbano.com/component-manifest.json)
+- [Installation](https://forzaui.chrisdalbano.com/guide/installation)
+- [AI contract](https://forzaui.chrisdalbano.com/guide/ai)
 - [Source](https://github.com/Chrisdalbano/forza-ui)

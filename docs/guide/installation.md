@@ -2,11 +2,33 @@
 
 Forza requires Vue 3.5 or later. The current distribution is a versioned GitHub release, not an npm registry publication.
 
+## Package managers and registry status
+
+Forza is a built package containing ESM JavaScript, TypeScript declarations, CSS, and Vue source. It is currently distributed as a GitHub Release tarball. It has not been published to the npm registry, so installing by package name alone is not available yet.
+
+npm, pnpm, Yarn, and Bun are package managers. They can install the same package from a release URL; pnpm does not require a separate Forza publication. Choose the command for your application below.
+
 ## Install the release
 
-```sh
-npm install https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.2/chrisdalbano-forza-ui-0.3.2.tgz
+::: code-group
+
+```sh [npm]
+npm install https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-0.3.3.tgz
 ```
+
+```sh [pnpm]
+pnpm add https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-0.3.3.tgz
+```
+
+```sh [Yarn]
+yarn add https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-0.3.3.tgz
+```
+
+```sh [Bun]
+bun add https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.3/chrisdalbano-forza-ui-0.3.3.tgz
+```
+
+:::
 
 npm installs the declared peers. If your package manager requires explicit peers:
 
