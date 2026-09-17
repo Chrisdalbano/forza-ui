@@ -35,3 +35,7 @@ npm run test:browser
 Release tarballs are distributed through GitHub Releases. No npm registry publication is claimed. Vue SSR, the static site, and a Nuxt 4.5.2 production consumer are verified. See tests/fixtures/nuxt for the consumer fixture.
 
 MIT licensed. Third-party notices are preserved. GSAP belongs to the marketing site, not the component package. Not affiliated with Riot Games or Microsoft/Turn 10.
+
+## CI setup
+
+The checked-in `.github/checks-template.yml` runs the verification commands above. To enable GitHub Actions, move it to `.github/workflows/check.yml` using credentials with workflow permission. The publishing session could push source but lacked that permission, so automated CI is not active yet.
