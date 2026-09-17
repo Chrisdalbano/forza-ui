@@ -36,6 +36,16 @@ import library from "../../../../packages/vue/package.json";
       </article>
     </div>
   </section>
+  <section class="presentation-section buildvalue-case">
+    <div class="reveal">
+      <h2>From components.<br /><em>To decisions.</em></h2>
+      <p>BuildValue brings Forza into a working item workspace: search, comparisons, saved builds, and champion studies.</p>
+      <a class="site-link" href="/guide/buildvalue">See the integration &#8599;</a>
+    </div>
+    <a class="buildvalue-preview reveal" href="https://buildvalue.chrisdalbano.com/items" aria-label="Explore BuildValue">
+      <img src="/showcase/buildvalue.webp" alt="BuildValue item explorer and build tray using Forza UI" width="1440" height="1000" loading="lazy" />
+    </a>
+  </section>
   <section class="presentation-section source-section">
     <div class="reveal">
       <h2>Open to inspection.<br /><em>Open to contribution.</em></h2>
@@ -55,3 +65,13 @@ import library from "../../../../packages/vue/package.json";
     </div>
   </section>
 </template>
+
+<style scoped>
+.buildvalue-case { display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; align-items: center; }
+.buildvalue-case p { max-width: 450px; margin: 24px 0; color: var(--fz-muted); line-height: 1.8; }
+.buildvalue-preview { display: block; overflow: hidden; border: 1px solid var(--fz-border); }
+.buildvalue-preview img { display: block; width: 100%; height: auto; transition: transform 320ms var(--fz-ease-out); }
+.buildvalue-preview:hover img { transform: scale(1.025); }
+@media (max-width: 900px) { .buildvalue-case { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .buildvalue-preview img { transition: none; } .buildvalue-preview:hover img { transform: none; } }
+</style>

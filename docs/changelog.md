@@ -1,5 +1,11 @@
 # Changelog
 
+## Documentation / September 17, 2026
+
+- Add the BuildValue application study, component mapping, and integration example.
+- Show BuildValue on the landing as a consumer of the published package.
+- No package API changes; the integration uses version 0.3.3.
+
 ## 0.3.3
 
 - Publish the library and source-copy CLI to npm under the @chrisdalbano scope.

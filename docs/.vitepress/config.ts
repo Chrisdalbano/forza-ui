@@ -106,6 +106,7 @@ export default defineConfig({
           { text: "Theming", link: "/guide/theming" },
           { text: "Motion & accessibility", link: "/guide/motion" },
           { text: "AI integration", link: "/guide/ai" },
+          { text: "In use: BuildValue", link: "/guide/buildvalue" },
         ],
       },
       {
