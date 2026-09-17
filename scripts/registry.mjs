@@ -98,7 +98,7 @@ for (const item of catalog) {
 }
 const manifest = {
   schemaVersion: 1,
-  version: "0.3.1",
+  version: "0.3.2",
   framework: "Vue 3.5+",
   package: "@chrisdalbano/forza-ui",
   themeClass: "fz-theme",
@@ -119,7 +119,7 @@ await writeFile(
   JSON.stringify(manifest, null, 2),
 );
 const pages = (await readdir("docs/guide")).filter((n) => n.endsWith(".md"));
-let full = "# Forza UI 0.3.1\n\n";
+let full = "# Forza UI 0.3.2\n\n";
 for (const name of pages)
   full += (await readFile("docs/guide/" + name, "utf8")) + "\n\n";
 for (const c of components)

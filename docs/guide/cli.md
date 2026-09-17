@@ -5,7 +5,7 @@ The CLI copies source into your project. It resolves local component imports, in
 ## Install
 
 ```sh
-npm install -D https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.1/chrisdalbano-forza-ui-cli-0.3.1.tgz
+npm install -D https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.2/chrisdalbano-forza-ui-cli-0.3.2.tgz
 npx forza init
 npx forza add button field dialog
 ```

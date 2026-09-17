@@ -91,12 +91,7 @@ label {
 .select-trigger .fz-icon {
   transition: transform var(--fz-motion-layout) var(--fz-ease-out);
 }
-.select-content {
-  min-width: var(--reka-select-trigger-width);
-  max-height: min(300px, var(--reka-select-content-available-height));
-  overflow: auto;
-  padding: 6px;
-}
+
 .select-item {
   display: flex;
   justify-content: space-between;
@@ -113,5 +108,15 @@ label {
 .select-item[data-disabled] {
   opacity: 0.4;
   pointer-events: none;
+}
+</style>
+
+<!-- Portal roots pass through Reka wrappers; namespace these rules instead of relying on scope attributes. -->
+<style>
+.fz-theme .select-content {
+  min-width: var(--reka-select-trigger-width);
+  max-height: min(300px, var(--reka-select-content-available-height));
+  overflow: auto;
+  padding: 6px;
 }
 </style>

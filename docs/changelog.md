@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.2
+
+- Prevent duplicate scrollbar compensation when menus, selects, and modal overlays open on the documentation site. Document the stable-gutter integration for applications.
+- Simplify alerts to a uniform border with a tone-colored icon.
+- Animate checkbox backgrounds and check indicators in both directions, with reduced-motion support.
+- Restore container styles across portaled popovers, dropdowns, selects, and tooltips. Increase popover padding and spacing between content blocks.
+
 ## 0.3.1
 
 - Replace the landing workspace mockup with an interactive collection.

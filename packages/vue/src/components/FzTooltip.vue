@@ -20,8 +20,10 @@ withDefaults(defineProps<{ text: string; delay?: number }>(), { delay: 250 });
     ></TooltipProvider
   >
 </template>
-<style scoped>
-.fz-tooltip {
+
+<!-- Portal roots pass through Reka wrappers; namespace these rules instead of relying on scope attributes. -->
+<style>
+.fz-theme .fz-tooltip {
   padding: 8px 12px;
   max-width: 260px;
   font-size: 12px;

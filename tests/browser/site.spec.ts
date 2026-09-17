@@ -182,3 +182,81 @@ test("highlighted examples copy exact source and wrap without navigation", async
     "ref<string>",
   );
 });
+
+test("overlays preserve content geometry with visible native scrollbars", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  for (const [name, trigger] of [
+    ["Dropdown", "Build actions"],
+    ["Select", null],
+    ["Drawer", "Open filters"],
+    ["Dialog", "Save a build"],
+  ]) {
+    await page.goto("/playground?component=Fz" + name);
+    await expect(page.locator(".playground-content h2")).toHaveText(
+      "Fz" + name,
+    );
+    await page.locator(".component-preview").waitFor();
+    const opener = trigger
+      ? page.getByRole("button", { name: trigger, exact: true })
+      : page.getByRole("combobox");
+    await opener.scrollIntoViewIfNeeded();
+    const measure = () =>
+      page.locator(".playground-content").evaluate((el) => {
+        const r = el.getBoundingClientRect();
+        return { x: r.x, width: r.width };
+      });
+    const before = await measure();
+    await opener.click();
+    await expect
+      .poll(() => page.evaluate(() => document.body.style.overflow))
+      .toBe("hidden");
+    expect(await measure()).toEqual(before);
+    if (name === "Dropdown")
+      await expect(page.locator(".fz-menu")).toHaveCSS("padding", "6px");
+    if (name === "Select")
+      await expect(page.locator(".select-content")).toHaveCSS("padding", "6px");
+    await page.keyboard.press("Escape");
+    await expect
+      .poll(() => page.evaluate(() => document.body.style.overflow))
+      .toBe("");
+    expect(await measure()).toEqual(before);
+    await expect(opener).toBeFocused();
+  }
+});
+
+test("checkbox transitions reverse and honor reduced motion; popover has breathing room", async ({
+  page,
+}) => {
+  await page.goto("/components/checkbox");
+  const checkbox = page.getByRole("checkbox");
+  await checkbox.check();
+  await expect(checkbox.locator(".checkbox-indicator")).toHaveCSS(
+    "opacity",
+    "1",
+  );
+  await checkbox.uncheck();
+  await expect(checkbox.locator(".checkbox-indicator")).toHaveCSS(
+    "opacity",
+    "0",
+  );
+  await expect(checkbox.locator(".checkbox-indicator")).toHaveCount(1);
+  expect(
+    await checkbox.evaluate((el) => getComputedStyle(el).transitionDuration),
+  ).not.toBe("0s");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(checkbox).toHaveCSS("transition-duration", "0s");
+  await page.goto("/components/popover");
+  await page
+    .getByRole("button", { name: "Build details", exact: true })
+    .click();
+  await expect(page.locator(".fz-popover")).toHaveCSS("padding", "24px");
+  await page.keyboard.press("Escape");
+  await page.goto("/components/alert");
+  await expect(page.locator(".fz-alert").first()).toHaveCSS(
+    "border-left-width",
+    "1px",
+  );
+});
+

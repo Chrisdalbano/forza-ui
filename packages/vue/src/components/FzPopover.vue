@@ -14,16 +14,34 @@ const open = defineModel<boolean>("open", { default: false });
     ><FzPortal
       ><PopoverContent
         class="fz-floating fz-popover"
-        :side-offset="10"
+        :side-offset="12"
+        :collision-padding="16"
         :aria-label="label"
-        ><slot :close="() => (open = false)" /></PopoverContent></FzPortal
+        ><div class="popover-body">
+          <slot
+            :close="() => (open = false)"
+          /></div></PopoverContent></FzPortal
   ></PopoverRoot>
 </template>
 <style scoped>
-.fz-popover {
-  width: min(320px, calc(100vw - 32px));
-  padding: 20px;
-  font-size: 13px;
+.popover-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.popover-body :deep(p),
+.popover-body :deep(h3),
+.popover-body :deep(h4) {
+  margin: 0;
+}
+</style>
+
+<!-- Portal roots pass through Reka wrappers; namespace these rules instead of relying on scope attributes. -->
+<style>
+.fz-theme .fz-popover {
+  width: min(360px, calc(100vw - 32px));
+  padding: 24px;
+  font-size: 14px;
   line-height: 1.7;
 }
 </style>

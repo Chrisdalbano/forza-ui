@@ -45,3 +45,27 @@ The site self-hosts Manrope, Barlow Condensed, and IBM Plex Mono. The package do
 ## Motion tokens
 
 `--fz-motion-fast` is 160ms, `--fz-motion-layout` 260ms, `--fz-motion-enter` 320ms, and `--fz-motion-exit` 180ms. Override them on your wrapper. Reduced-motion settings take precedence.
+
+## Stable page layout with overlays
+
+If your application reserves scrollbar space with `scrollbar-gutter: stable`, disable Reka's extra body padding at the app root. Scroll locking and focus management remain enabled.
+
+```vue
+<script setup lang="ts">
+import { ConfigProvider } from "reka-ui";
+</script>
+
+<template>
+  <ConfigProvider :scroll-body="false">
+    <div class="fz-theme"><slot /></div>
+  </ConfigProvider>
+</template>
+
+<style>
+html {
+  scrollbar-gutter: stable;
+}
+</style>
+```
+
+Without a stable gutter, keep Reka's default compensation. Combining a reserved gutter with padding compensation shifts the page twice. The Forza documentation site uses the setup above.

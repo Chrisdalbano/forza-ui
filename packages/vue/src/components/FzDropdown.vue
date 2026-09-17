@@ -52,10 +52,6 @@ defineEmits<{ select: [value: string] }>();
   >
 </template>
 <style scoped>
-.fz-menu {
-  min-width: 210px;
-  padding: 6px;
-}
 .menu-label {
   font: 12px var(--fz-font-mono);
   color: var(--fz-muted);
@@ -85,5 +81,13 @@ defineEmits<{ select: [value: string] }>();
 kbd {
   font: 12px var(--fz-font-mono);
   color: var(--fz-muted);
+}
+</style>
+
+<!-- Portal roots pass through Reka wrappers; namespace these rules instead of relying on scope attributes. -->
+<style>
+.fz-theme .fz-menu {
+  min-width: 210px;
+  padding: 6px;
 }
 </style>

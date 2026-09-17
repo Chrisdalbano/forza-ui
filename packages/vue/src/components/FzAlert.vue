@@ -24,26 +24,25 @@ withDefaults(
 <style scoped>
 .fz-alert {
   display: flex;
-  gap: 12px;
-  padding: 16px;
+  gap: 14px;
+  padding: 20px;
   border: 1px solid var(--fz-border);
-  border-left: 3px solid var(--fz-accent);
-  border-radius: 4px;
+  border-radius: 6px;
   background: var(--fz-surface);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
 }
 .fz-alert[data-tone="success"] {
-  border-left-color: var(--fz-positive);
+  --alert-icon: var(--fz-positive);
 }
 .fz-alert[data-tone="info"] {
-  border-left-color: var(--fz-info);
+  --alert-icon: var(--fz-info);
 }
 .fz-alert[data-tone="warning"] {
-  border-left-color: var(--fz-warning);
+  --alert-icon: var(--fz-warning);
 }
 .fz-alert[data-tone="danger"] {
-  border-left-color: var(--fz-accent);
+  --alert-icon: var(--fz-accent);
 }
 .fz-alert-body {
   color: var(--fz-muted);
@@ -51,5 +50,7 @@ withDefaults(
 }
 .fz-alert svg {
   margin-top: 2px;
+  flex-shrink: 0;
+  color: var(--alert-icon, var(--fz-info));
 }
 </style>

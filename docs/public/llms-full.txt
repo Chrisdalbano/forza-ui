@@ -1,4 +1,4 @@
-# Forza UI 0.3.1
+# Forza UI 0.3.2
 
 # Use Forza with AI
 
@@ -17,7 +17,7 @@ API metadata is extracted from Vue source with Vue Language Tools. Examples and 
 ## A useful prompt
 
 ```text
-Use Forza UI 0.3.1 and Vue 3.5 with script setup and TypeScript.
+Use Forza UI 0.3.2 and Vue 3.5 with script setup and TypeScript.
 Read https://forzaui.web.app/llms-full.txt and the component manifest.
 Use documented exports only. Keep business state in the parent.
 Import the stylesheet once and wrap the UI in .fz-theme.
@@ -66,7 +66,7 @@ The CLI copies source into your project. It resolves local component imports, in
 ## Install
 
 ```sh
-npm install -D https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.1/chrisdalbano-forza-ui-cli-0.3.1.tgz
+npm install -D https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.2/chrisdalbano-forza-ui-cli-0.3.2.tgz
 npx forza init
 npx forza add button field dialog
 ```
@@ -120,7 +120,7 @@ Forza requires Vue 3.5 or later. The current distribution is a versioned GitHub 
 ## Install the release
 
 ```sh
-npm install https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.1/chrisdalbano-forza-ui-0.3.1.tgz
+npm install https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.2/chrisdalbano-forza-ui-0.3.2.tgz
 ```
 
 npm installs the declared peers. If your package manager requires explicit peers:
@@ -300,6 +300,30 @@ The site self-hosts Manrope, Barlow Condensed, and IBM Plex Mono. The package do
 ## Motion tokens
 
 `--fz-motion-fast` is 160ms, `--fz-motion-layout` 260ms, `--fz-motion-enter` 320ms, and `--fz-motion-exit` 180ms. Override them on your wrapper. Reduced-motion settings take precedence.
+
+## Stable page layout with overlays
+
+If your application reserves scrollbar space with `scrollbar-gutter: stable`, disable Reka's extra body padding at the app root. Scroll locking and focus management remain enabled.
+
+```vue
+<script setup lang="ts">
+import { ConfigProvider } from "reka-ui";
+</script>
+
+<template>
+  <ConfigProvider :scroll-body="false">
+    <div class="fz-theme"><slot /></div>
+  </ConfigProvider>
+</template>
+
+<style>
+html {
+  scrollbar-gutter: stable;
+}
+</style>
+```
+
+Without a stable gutter, keep Reka's default compensation. Combining a reserved gutter with padding compensation shifts the page twice. The Forza documentation site uses the setup above.
 
 
 # FzButton
