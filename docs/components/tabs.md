@@ -4,6 +4,7 @@ description: Tabs component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # Tabs
@@ -18,18 +19,7 @@ The default slot renders the active panel. The parent owns its content. Arrow ke
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzTabs } from '@chrisdalbano/forza-ui'
-const tab = ref('overview')
-const tabs = [{ value: 'overview', label: 'Overview' }, { value: 'history', label: 'History' }]
-</script>
-
-<template>
-  <FzTabs v-model="tab" label="Details" :options="tabs"><p>{{ tab }}</p></FzTabs>
-</template>
-```
+<CodeExample name="FzTabs" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

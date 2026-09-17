@@ -4,6 +4,7 @@ description: Select component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # Select
@@ -18,18 +19,7 @@ Single string selection. Supply a visible label. Disabled options are unavailabl
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzSelect } from '@chrisdalbano/forza-ui'
-const role = ref('guardian')
-const roles = [{ value: 'guardian', label: 'Guardian' }]
-</script>
-
-<template>
-  <FzSelect v-model="role" label="Role" :options="roles" />
-</template>
-```
+<CodeExample name="FzSelect" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

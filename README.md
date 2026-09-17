@@ -18,6 +18,7 @@ npm run dev
 
 ```sh
 npm run typecheck
+npm run typecheck:examples
 npm test
 npm run build
 npx playwright install chromium

@@ -4,6 +4,7 @@ description: List component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # List
@@ -18,20 +19,7 @@ Use stable, unique item IDs. Mutate the parent array to add, remove, or reorder.
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzList } from '@chrisdalbano/forza-ui'
-const builds = ref([{ id: 1, name: 'Guardian' }])
-</script>
-
-<template>
-  <FzList :items="builds" label="Builds">
-    <template #default="{ item }">{{ item.name }}</template>
-    <template #empty>No builds yet.</template>
-  </FzList>
-</template>
-```
+<CodeExample name="FzList" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

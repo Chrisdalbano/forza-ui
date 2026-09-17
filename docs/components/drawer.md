@@ -4,6 +4,7 @@ description: Drawer component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # Drawer
@@ -18,18 +19,7 @@ Shares the dialog focus contract. Right and bottom placement are supported. No d
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzDrawer } from '@chrisdalbano/forza-ui'
-const open = ref(false)
-</script>
-
-<template>
-  <button @click="open = true">Open filters</button>
-  <FzDrawer v-model="open" title="Filters" side="right"><p>Your filters.</p></FzDrawer>
-</template>
-```
+<CodeExample name="FzDrawer" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.1
+
+- Replace the landing workspace mockup with an interactive collection.
+- Add Shiki-highlighted Vue and TypeScript examples to the playground and component docs, with filenames, line numbers, wrapping, and clipboard feedback.
+- Check all displayed component examples with vue-tsc.
+- Refine field focus with an attached border, tinted surface, and animated underline. Respect reduced motion and forced colors.
+
 ## 0.3.0 / September 17, 2026
 
 First standalone open-source release.

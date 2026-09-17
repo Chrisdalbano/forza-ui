@@ -4,6 +4,7 @@ description: Slider component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # Slider
@@ -18,17 +19,7 @@ One numeric thumb. Arrow keys change by step; Home and End reach the bounds. The
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzSlider } from '@chrisdalbano/forza-ui'
-const budget = ref(3200)
-</script>
-
-<template>
-  <FzSlider v-model="budget" label="Gold" :min="1000" :max="6000" :step="100" />
-</template>
-```
+<CodeExample name="FzSlider" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

@@ -202,98 +202,6 @@ body {
   border-bottom: 1px solid var(--fz-border);
   padding: 8px 0;
 }
-.hero-composition {
-  position: relative;
-  min-width: 0;
-  padding-top: 130px;
-  perspective: 1000px;
-}
-.hero-emblem {
-  position: absolute;
-  top: -75px;
-  right: 30px;
-  transform: rotate(-12deg);
-  z-index: 0;
-}
-.hero-emblem img {
-  width: clamp(180px, 22vw, 330px);
-  height: auto;
-  filter: drop-shadow(0 26px 28px rgb(0 0 0 / 0.24));
-}
-.hero-console {
-  position: relative;
-  z-index: 1;
-  border: 1px solid var(--fz-border);
-  border-radius: 10px;
-  background: var(--fz-surface);
-  box-shadow: 0 28px 80px rgb(0 0 0 / 0.2);
-  transform: rotate(-3deg);
-}
-.console-heading {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 20px;
-  border-bottom: 1px solid var(--fz-border);
-  font-size: 13px;
-  color: var(--fz-muted);
-}
-.console-heading > .fz-badge {
-  margin-left: auto;
-}
-.console-dots {
-  display: flex;
-  gap: 5px;
-}
-.console-dots i {
-  height: 6px;
-  width: 6px;
-  border-radius: 50%;
-  background: var(--fz-border);
-}
-.console-body {
-  padding: 28px;
-  display: grid;
-  gap: 28px;
-}
-.console-title {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.console-title h2 {
-  font-size: 30px;
-  margin: 0 0 8px;
-}
-.console-title p {
-  font-size: 14px;
-  color: var(--fz-muted);
-  margin: 0;
-}
-.emblem-small {
-  padding: 12px;
-  border: 1px solid var(--fz-border);
-  border-radius: 8px;
-}
-.console-bottom {
-  border-top: 1px solid var(--fz-border);
-  padding-top: 22px;
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: center;
-}
-.console-bottom > span {
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--fz-muted);
-}
-.composition-caption {
-  text-align: right;
-  font-size: 14px;
-  color: var(--fz-muted);
-  margin: 35px 8px 0;
-}
 .feature-ribbon {
   border-block: 1px solid var(--fz-border);
   padding: 24px 6vw;
@@ -649,14 +557,8 @@ body {
 .playground-nav label {
   font-size: 14px;
 }
-.playground-nav input {
-  width: 100%;
-  background: var(--fz-surface);
-  border: 1px solid var(--fz-border);
-  border-radius: 4px;
-  padding: 10px;
+.playground-nav .component-search {
   margin: 10px 0 14px;
-  font-size: 14px;
 }
 .playground-content {
   min-width: 0;
@@ -693,15 +595,6 @@ body {
   margin-top: 24px;
   font-size: 14px;
 }
-.preview-code {
-  white-space: pre-wrap;
-  overflow: auto;
-  font: 13px/1.8 var(--fz-font-mono);
-  padding: 24px;
-  background: var(--fz-surface);
-  border: 1px solid var(--fz-border);
-  border-radius: 6px;
-}
 @media (min-width: 1600px) {
   .component-gateway,
   .brand-footer {
@@ -713,23 +606,6 @@ body {
     padding: 70px 5vw;
     gap: 24px;
     min-height: 0;
-  }
-  .hero-composition {
-    padding-top: 120px;
-  }
-  .hero-emblem {
-    right: 0;
-    top: -50px;
-  }
-  .console-heading {
-    gap: 8px;
-    padding: 16px;
-  }
-  .console-body {
-    padding: 20px;
-  }
-  .console-bottom {
-    flex-wrap: wrap;
   }
   .story-grid {
     gap: 40px;
@@ -758,20 +634,6 @@ body {
   }
   .landing-hero h1 {
     font-size: 100px;
-  }
-  .hero-composition {
-    margin: 60px 0 0;
-    padding-top: 80px;
-  }
-  .hero-emblem {
-    top: -65px;
-    right: 10px;
-  }
-  .hero-emblem img {
-    width: 180px;
-  }
-  .hero-console {
-    transform: none;
   }
   .hero-support {
     max-width: 100%;

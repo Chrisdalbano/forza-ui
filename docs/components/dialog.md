@@ -4,6 +4,7 @@ description: Dialog component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # Dialog
@@ -18,18 +19,7 @@ Escape closes the dialog. Focus is trapped while open and returned to the opener
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzDialog } from '@chrisdalbano/forza-ui'
-const open = ref(false)
-</script>
-
-<template>
-  <button @click="open = true">Open</button>
-  <FzDialog v-model="open" title="Build details"><p>Your build is ready.</p></FzDialog>
-</template>
-```
+<CodeExample name="FzDialog" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

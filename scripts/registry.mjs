@@ -1,5 +1,7 @@
 import { readFile, writeFile, readdir, mkdir, cp } from "node:fs/promises";
 import { resolve } from "node:path";
+import { createHighlighter } from "shiki";
+import { format } from "prettier";
 import { createChecker } from "vue-component-meta";
 const catalog = JSON.parse(await readFile("meta/components.json", "utf8"));
 const checker = createChecker(resolve("tsconfig.json"), {
@@ -7,11 +9,33 @@ const checker = createChecker(resolve("tsconfig.json"), {
   forceUseTs: true,
 });
 const components = [];
+const highlighted = {};
+const highlighter = await createHighlighter({
+  themes: ["github-light", "github-dark-default"],
+  langs: ["vue"],
+});
+await mkdir(".smoke/examples", { recursive: true });
 const cell = (v) =>
   String(v ?? "")
     .replaceAll("|", "\\|")
     .replaceAll("\n", " ");
 for (const item of catalog) {
+  item.example = (
+    await format(item.example, {
+      parser: "vue",
+      semi: false,
+      singleQuote: true,
+      printWidth: 72,
+    })
+  ).trimEnd();
+  highlighted[item.name] = {
+    code: item.example,
+    html: highlighter.codeToHtml(item.example, {
+      lang: "vue",
+      themes: { light: "github-light", dark: "github-dark-default" },
+    }),
+  };
+  await writeFile(".smoke/examples/" + item.name + ".vue", item.example);
   const meta = checker.getComponentMeta(
     resolve("packages/vue/src/components/" + item.name + ".vue"),
   );
@@ -38,7 +62,7 @@ for (const item of catalog) {
     name +
     "\ndescription: " +
     name +
-    " component API, usage and live preview for Forza UI.\n---\n<script setup>\nimport ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'\n</script>\n\n# " +
+    " component API, usage and live preview for Forza UI.\n---\n<script setup>\nimport ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'\nimport CodeExample from '../.vitepress/theme/components/CodeExample.vue'\n</script>\n\n# " +
     name +
     "\n\n" +
     item.notes +
@@ -46,9 +70,11 @@ for (const item of catalog) {
     name +
     '" /></ClientOnly>\n\n[Open in the playground](/playground?component=' +
     item.name +
-    ")\n\n## Usage\n\n```vue\n" +
-    item.example +
-    "\n```\n\nImport the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).\n\n## Props\n\n| Name | Type | Required | Default |\n| --- | --- | --- | --- |\n";
+    ")\n\n## Usage\n\n" +
+    '<CodeExample name="' +
+    item.name +
+    '" />' +
+    "\n\nImport the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).\n\n## Props\n\n| Name | Type | Required | Default |\n| --- | --- | --- | --- |\n";
   for (const p of props)
     md +=
       "| `" +
@@ -72,7 +98,7 @@ for (const item of catalog) {
 }
 const manifest = {
   schemaVersion: 1,
-  version: "0.3.0",
+  version: "0.3.1",
   framework: "Vue 3.5+",
   package: "@chrisdalbano/forza-ui",
   themeClass: "fz-theme",
@@ -93,7 +119,7 @@ await writeFile(
   JSON.stringify(manifest, null, 2),
 );
 const pages = (await readdir("docs/guide")).filter((n) => n.endsWith(".md"));
-let full = "# Forza UI 0.3.0\n\n";
+let full = "# Forza UI 0.3.1\n\n";
 for (const name of pages)
   full += (await readFile("docs/guide/" + name, "utf8")) + "\n\n";
 for (const c of components)
@@ -117,3 +143,23 @@ console.log(
     components.length +
     " API pages, source registry, and AI references.",
 );
+
+await writeFile(
+  "docs/.vitepress/theme/highlightedExamples.json",
+  JSON.stringify(highlighted),
+);
+await writeFile(
+  ".smoke/examples/tsconfig.json",
+  JSON.stringify(
+    {
+      extends: "../../tsconfig.json",
+      compilerOptions: {
+        paths: { "@chrisdalbano/forza-ui": ["packages/vue/src/index.ts"] },
+      },
+      include: ["./*.vue"],
+    },
+    null,
+    2,
+  ),
+);
+highlighter.dispose();

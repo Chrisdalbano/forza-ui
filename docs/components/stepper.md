@@ -4,6 +4,7 @@ description: Stepper component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # Stepper
@@ -18,18 +19,7 @@ Steps begin at 1. The parent owns validation and content panels. Disable steps u
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzStepper } from '@chrisdalbano/forza-ui'
-const step = ref(1)
-const steps = [{ title: 'Choose' }, { title: 'Configure' }, { title: 'Review' }]
-</script>
-
-<template>
-  <FzStepper v-model="step" label="Setup" :steps="steps" />
-</template>
-```
+<CodeExample name="FzStepper" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

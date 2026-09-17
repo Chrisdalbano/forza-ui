@@ -5,7 +5,7 @@ Forza requires Vue 3.5 or later. The current distribution is a versioned GitHub 
 ## Install the release
 
 ```sh
-npm install https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.0/chrisdalbano-forza-ui-0.3.0.tgz
+npm install https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.1/chrisdalbano-forza-ui-0.3.1.tgz
 ```
 
 npm installs the declared peers. If your package manager requires explicit peers:

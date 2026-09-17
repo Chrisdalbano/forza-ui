@@ -4,6 +4,7 @@ description: Button component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # Button
@@ -18,17 +19,7 @@ State belongs to the parent. Compose this component with the props and slots bel
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzButton } from '@chrisdalbano/forza-ui'
-function saveBuild() { /* your application action */ }
-</script>
-
-<template>
-  <FzButton @click="saveBuild">Save build</FzButton>
-</template>
-```
+<CodeExample name="FzButton" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

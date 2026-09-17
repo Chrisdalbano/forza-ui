@@ -4,6 +4,7 @@ description: Icon component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # Icon
@@ -18,17 +19,7 @@ Uses Lucide. Omit label for decorative icons; supply label when the icon conveys
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzIcon } from '@chrisdalbano/forza-ui'
-
-</script>
-
-<template>
-  <FzIcon name="shield" :size="24" label="Guardian role" />
-</template>
-```
+<CodeExample name="FzIcon" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

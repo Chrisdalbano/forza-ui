@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { FzField } from "@forza";
 import { shallowRef, computed, onMounted, watch } from "vue";
 import { componentCatalog } from "../componentCatalog";
+import CodeExample from "./CodeExample.vue";
 import ComponentPreview from "./ComponentPreview.vue";
 const selected = shallowRef("FzButton"),
   query = shallowRef("");
@@ -31,13 +33,14 @@ onMounted(() => {
     </p>
     <div class="playground-grid">
       <nav class="playground-nav" aria-label="Component playground">
-        <label for="component-search">Find a component</label
-        ><input
-          id="component-search"
+        <FzField
           v-model="query"
+          label="Find a component"
           type="search"
           placeholder="Search components"
-        /><button
+          class="component-search"
+        />
+        <button
           v-for="component in visible"
           :key="component.name"
           :aria-pressed="selected === component.name"
@@ -61,12 +64,7 @@ onMounted(() => {
             <dd>{{ item.slots }}</dd>
           </div>
         </dl>
-        <pre
-          v-if="item.example"
-          class="preview-code"
-          tabindex="0"
-          aria-label="Usage code"
-        ><code>{{item.example}}</code></pre>
+        <CodeExample :key="item.name" :name="item.name" />
         <div class="preview-actions">
           <a
             class="site-button"

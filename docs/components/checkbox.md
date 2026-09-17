@@ -4,6 +4,7 @@ description: Checkbox component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # Checkbox
@@ -18,17 +19,7 @@ State belongs to the parent. Compose this component with the props and slots bel
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzCheckbox } from '@chrisdalbano/forza-ui'
-const shared = ref(false)
-</script>
-
-<template>
-  <FzCheckbox v-model="shared" label="Share with the team" />
-</template>
-```
+<CodeExample name="FzCheckbox" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

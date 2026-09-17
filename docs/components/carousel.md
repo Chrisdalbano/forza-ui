@@ -4,6 +4,7 @@ description: Carousel component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # Carousel
@@ -18,20 +19,7 @@ Slide indices begin at 0. Embla handles pointer and touch dragging. Inactive sli
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzCarousel } from '@chrisdalbano/forza-ui'
-const slide = ref(0)
-const builds = [{ id: 1, name: 'Guardian' }, { id: 2, name: 'Duelist' }]
-</script>
-
-<template>
-  <FzCarousel v-model="slide" :items="builds" label="Builds">
-    <template #default="{ item }">{{ item.name }}</template>
-  </FzCarousel>
-</template>
-```
+<CodeExample name="FzCarousel" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

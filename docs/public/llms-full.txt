@@ -1,4 +1,4 @@
-# Forza UI 0.3.0
+# Forza UI 0.3.1
 
 # Use Forza with AI
 
@@ -17,7 +17,7 @@ API metadata is extracted from Vue source with Vue Language Tools. Examples and 
 ## A useful prompt
 
 ```text
-Use Forza UI 0.3.0 and Vue 3.5 with script setup and TypeScript.
+Use Forza UI 0.3.1 and Vue 3.5 with script setup and TypeScript.
 Read https://forzaui.web.app/llms-full.txt and the component manifest.
 Use documented exports only. Keep business state in the parent.
 Import the stylesheet once and wrap the UI in .fz-theme.
@@ -66,7 +66,7 @@ The CLI copies source into your project. It resolves local component imports, in
 ## Install
 
 ```sh
-npm install -D https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.0/chrisdalbano-forza-ui-cli-0.3.0.tgz
+npm install -D https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.1/chrisdalbano-forza-ui-cli-0.3.1.tgz
 npx forza init
 npx forza add button field dialog
 ```
@@ -120,7 +120,7 @@ Forza requires Vue 3.5 or later. The current distribution is a versioned GitHub 
 ## Install the release
 
 ```sh
-npm install https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.0/chrisdalbano-forza-ui-0.3.0.tgz
+npm install https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.1/chrisdalbano-forza-ui-0.3.1.tgz
 ```
 
 npm installs the declared peers. If your package manager requires explicit peers:
@@ -309,9 +309,10 @@ State belongs to the parent. Compose this component with the props and slots bel
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
 import { FzButton } from '@chrisdalbano/forza-ui'
-function saveBuild() { /* your application action */ }
+function saveBuild(): void {
+  /* your application action */
+}
 </script>
 
 <template>
@@ -328,7 +329,7 @@ State belongs to the parent. Compose this component with the props and slots bel
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzField } from '@chrisdalbano/forza-ui'
-const name = ref('')
+const name = ref<string>('')
 </script>
 
 <template>
@@ -345,8 +346,9 @@ Single string selection. Supply a visible label. Disabled options are unavailabl
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzSelect } from '@chrisdalbano/forza-ui'
-const role = ref('guardian')
-const roles = [{ value: 'guardian', label: 'Guardian' }]
+import type { ForzaOption } from '@chrisdalbano/forza-ui'
+const role = ref<string>('guardian')
+const roles: ForzaOption[] = [{ value: 'guardian', label: 'Guardian' }]
 </script>
 
 <template>
@@ -363,7 +365,7 @@ State belongs to the parent. Compose this component with the props and slots bel
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzCheckbox } from '@chrisdalbano/forza-ui'
-const shared = ref(false)
+const shared = ref<boolean>(false)
 </script>
 
 <template>
@@ -380,11 +382,17 @@ One numeric thumb. Arrow keys change by step; Home and End reach the bounds. The
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzSlider } from '@chrisdalbano/forza-ui'
-const budget = ref(3200)
+const budget = ref<number>(3200)
 </script>
 
 <template>
-  <FzSlider v-model="budget" label="Gold" :min="1000" :max="6000" :step="100" />
+  <FzSlider
+    v-model="budget"
+    label="Gold"
+    :min="1000"
+    :max="6000"
+    :step="100"
+  />
 </template>
 ```
 
@@ -397,7 +405,7 @@ State belongs to the parent. Compose this component with the props and slots bel
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzSwitch } from '@chrisdalbano/forza-ui'
-const enabled = ref(true)
+const enabled = ref<boolean>(true)
 </script>
 
 <template>
@@ -414,8 +422,12 @@ State belongs to the parent. Compose this component with the props and slots bel
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzSegmented } from '@chrisdalbano/forza-ui'
-const view = ref('grid')
-const options = [{ value: 'grid', label: 'Grid' }, { value: 'list', label: 'List' }]
+import type { ForzaOption } from '@chrisdalbano/forza-ui'
+const view = ref<string>('grid')
+const options: ForzaOption[] = [
+  { value: 'grid', label: 'Grid' },
+  { value: 'list', label: 'List' },
+]
 </script>
 
 <template>
@@ -432,12 +444,18 @@ The default slot renders the active panel. The parent owns its content. Arrow ke
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzTabs } from '@chrisdalbano/forza-ui'
-const tab = ref('overview')
-const tabs = [{ value: 'overview', label: 'Overview' }, { value: 'history', label: 'History' }]
+import type { ForzaOption } from '@chrisdalbano/forza-ui'
+const tab = ref<string>('overview')
+const tabs: ForzaOption[] = [
+  { value: 'overview', label: 'Overview' },
+  { value: 'history', label: 'History' },
+]
 </script>
 
 <template>
-  <FzTabs v-model="tab" label="Details" :options="tabs"><p>{{ tab }}</p></FzTabs>
+  <FzTabs v-model="tab" label="Details" :options="tabs"
+    ><p>{{ tab }}</p></FzTabs
+  >
 </template>
 ```
 
@@ -450,8 +468,13 @@ Steps begin at 1. The parent owns validation and content panels. Disable steps u
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzStepper } from '@chrisdalbano/forza-ui'
-const step = ref(1)
-const steps = [{ title: 'Choose' }, { title: 'Configure' }, { title: 'Review' }]
+import type { ForzaStep } from '@chrisdalbano/forza-ui'
+const step = ref<number>(1)
+const steps: ForzaStep[] = [
+  { title: 'Choose' },
+  { title: 'Configure' },
+  { title: 'Review' },
+]
 </script>
 
 <template>
@@ -468,7 +491,7 @@ State belongs to the parent. Compose this component with the props and slots bel
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzPagination } from '@chrisdalbano/forza-ui'
-const page = ref(1)
+const page = ref<number>(1)
 </script>
 
 <template>
@@ -485,8 +508,15 @@ Single, collapsible expansion. An empty model closes every item. Custom content 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzAccordion } from '@chrisdalbano/forza-ui'
-const expanded = ref('')
-const guide = [{ value: 'start', title: 'Where do I start?', content: 'Choose a role and set a budget.' }]
+import type { ForzaAccordionItem } from '@chrisdalbano/forza-ui'
+const expanded = ref<string>('')
+const guide: ForzaAccordionItem[] = [
+  {
+    value: 'start',
+    title: 'Where do I start?',
+    content: 'Choose a role and set a budget.',
+  },
+]
 </script>
 
 <template>
@@ -503,8 +533,11 @@ Slide indices begin at 0. Embla handles pointer and touch dragging. Inactive sli
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzCarousel } from '@chrisdalbano/forza-ui'
-const slide = ref(0)
-const builds = [{ id: 1, name: 'Guardian' }, { id: 2, name: 'Duelist' }]
+const slide = ref<number>(0)
+const builds = [
+  { id: 1, name: 'Guardian' },
+  { id: 2, name: 'Duelist' },
+]
 </script>
 
 <template>
@@ -523,12 +556,19 @@ State belongs to the parent. Compose this component with the props and slots bel
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzDropdown } from '@chrisdalbano/forza-ui'
-const action = ref('')
-const actions = [{ value: 'duplicate', label: 'Duplicate' }]
+import type { ForzaMenuItem } from '@chrisdalbano/forza-ui'
+const action = ref<string>('')
+const actions: ForzaMenuItem[] = [
+  { value: 'duplicate', label: 'Duplicate' },
+]
 </script>
 
 <template>
-  <FzDropdown label="Actions" :items="actions" @select="action = $event" />
+  <FzDropdown
+    label="Actions"
+    :items="actions"
+    @select="action = $event"
+  />
 </template>
 ```
 
@@ -541,12 +581,14 @@ Escape closes the dialog. Focus is trapped while open and returned to the opener
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzDialog } from '@chrisdalbano/forza-ui'
-const open = ref(false)
+const open = ref<boolean>(false)
 </script>
 
 <template>
   <button @click="open = true">Open</button>
-  <FzDialog v-model="open" title="Build details"><p>Your build is ready.</p></FzDialog>
+  <FzDialog v-model="open" title="Build details"
+    ><p>Your build is ready.</p></FzDialog
+  >
 </template>
 ```
 
@@ -559,12 +601,14 @@ Shares the dialog focus contract. Right and bottom placement are supported. No d
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FzDrawer } from '@chrisdalbano/forza-ui'
-const open = ref(false)
+const open = ref<boolean>(false)
 </script>
 
 <template>
   <button @click="open = true">Open filters</button>
-  <FzDrawer v-model="open" title="Filters" side="right"><p>Your filters.</p></FzDrawer>
+  <FzDrawer v-model="open" title="Filters" side="right"
+    ><p>Your filters.</p></FzDrawer
+  >
 </template>
 ```
 
@@ -575,9 +619,7 @@ State belongs to the parent. Compose this component with the props and slots bel
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
 import { FzPopover } from '@chrisdalbano/forza-ui'
-
 </script>
 
 <template>
@@ -592,13 +634,13 @@ Use one focusable trigger. Essential instructions should remain visible elsewher
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
 import { FzTooltip } from '@chrisdalbano/forza-ui'
-
 </script>
 
 <template>
-  <FzTooltip text="Tune your build"><button type="button">Settings</button></FzTooltip>
+  <FzTooltip text="Tune your build"
+    ><button type="button">Settings</button></FzTooltip
+  >
 </template>
 ```
 
@@ -613,11 +655,19 @@ import { ref } from 'vue'
 import { FzTable } from '@chrisdalbano/forza-ui'
 const sort = ref({ key: 'gold', direction: 'asc' as 'asc' | 'desc' })
 const rows = [{ id: 1, name: 'Sunbreaker', gold: 3200 }]
-const columns = [{ key: 'name', label: 'Item' }, { key: 'gold', label: 'Gold', sortable: true }]
+const columns = [
+  { key: 'name', label: 'Item' },
+  { key: 'gold', label: 'Gold', sortable: true },
+]
 </script>
 
 <template>
-  <FzTable v-model:sort="sort" :rows="rows" :columns="columns" label="Items" />
+  <FzTable
+    v-model:sort="sort"
+    :rows="rows"
+    :columns="columns"
+    label="Items"
+  />
 </template>
 ```
 
@@ -648,13 +698,13 @@ State belongs to the parent. Compose this component with the props and slots bel
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
 import { FzAlert } from '@chrisdalbano/forza-ui'
-
 </script>
 
 <template>
-  <FzAlert title="Build saved" tone="success">Your changes are ready.</FzAlert>
+  <FzAlert title="Build saved" tone="success"
+    >Your changes are ready.</FzAlert
+  >
 </template>
 ```
 
@@ -665,9 +715,7 @@ State belongs to the parent. Compose this component with the props and slots bel
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
 import { FzBadge } from '@chrisdalbano/forza-ui'
-
 </script>
 
 <template>
@@ -682,9 +730,7 @@ State belongs to the parent. Compose this component with the props and slots bel
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
 import { FzMeter } from '@chrisdalbano/forza-ui'
-
 </script>
 
 <template>
@@ -699,9 +745,7 @@ State belongs to the parent. Compose this component with the props and slots bel
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
 import { FzStat } from '@chrisdalbano/forza-ui'
-
 </script>
 
 <template>
@@ -716,13 +760,13 @@ State belongs to the parent. Compose this component with the props and slots bel
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
 import { FzPanel } from '@chrisdalbano/forza-ui'
-
 </script>
 
 <template>
-  <FzPanel title="Workspace"><p>Compose your interface here.</p></FzPanel>
+  <FzPanel title="Workspace"
+    ><p>Compose your interface here.</p></FzPanel
+  >
 </template>
 ```
 
@@ -733,9 +777,7 @@ Uses Lucide. Omit label for decorative icons; supply label when the icon conveys
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
 import { FzIcon } from '@chrisdalbano/forza-ui'
-
 </script>
 
 <template>

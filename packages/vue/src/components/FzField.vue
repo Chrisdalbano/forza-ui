@@ -68,23 +68,40 @@ const id = useId();
   border: 1px solid var(--fz-border);
   border-radius: var(--fz-radius);
   background: var(--fz-field-bg);
-  transition: border-color var(--fz-motion-fast);
+  transition:
+    border-color var(--fz-motion-fast) var(--fz-ease-out),
+    background-color var(--fz-motion-enter) var(--fz-ease-out),
+    box-shadow var(--fz-motion-enter) var(--fz-ease-out);
 }
 .field-control::after {
   content: "";
   position: absolute;
-  inset: -1px;
-  border: 2px solid var(--fz-accent);
-  border-radius: inherit;
-  opacity: 0;
+  inset: auto 10px -1px;
+  height: 2px;
+  background: var(--fz-accent);
+  transform: scaleX(0);
+  transform-origin: left;
   pointer-events: none;
-  transition: opacity var(--fz-motion-fast) var(--fz-ease-out);
+  transition: transform var(--fz-motion-enter) var(--fz-ease-out);
+}
+.field-control:hover:not(:focus-within) {
+  border-color: var(--fz-muted);
+}
+.field-control:focus-within {
+  border-color: var(--fz-accent);
+  background: color-mix(in srgb, var(--fz-accent) 4%, var(--fz-field-bg));
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--fz-accent) 32%, transparent);
 }
 .field-control:focus-within::after {
-  opacity: 1;
+  transform: scaleX(1);
 }
-.field-control:hover {
-  border-color: var(--fz-muted);
+.field-label,
+.field-leading {
+  transition: color var(--fz-motion-fast) var(--fz-ease-out);
+}
+.is-disabled .field-control:hover {
+  border-color: var(--fz-border);
 }
 .field-leading {
   padding-left: 14px;
@@ -141,6 +158,7 @@ const id = useId();
 @media (forced-colors: active) {
   .field-control:focus-within {
     outline: 2px solid Highlight;
+    outline-offset: -2px;
   }
   .field-control::after {
     display: none;

@@ -4,6 +4,7 @@ description: Table component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # Table
@@ -18,19 +19,7 @@ Sorting is controlled: use the emitted sort value to sort or request rows in the
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzTable } from '@chrisdalbano/forza-ui'
-const sort = ref({ key: 'gold', direction: 'asc' as 'asc' | 'desc' })
-const rows = [{ id: 1, name: 'Sunbreaker', gold: 3200 }]
-const columns = [{ key: 'name', label: 'Item' }, { key: 'gold', label: 'Gold', sortable: true }]
-</script>
-
-<template>
-  <FzTable v-model:sort="sort" :rows="rows" :columns="columns" label="Items" />
-</template>
-```
+<CodeExample name="FzTable" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

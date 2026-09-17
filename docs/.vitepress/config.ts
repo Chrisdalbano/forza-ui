@@ -32,6 +32,10 @@ export default defineConfig({
   description:
     "Vue components with character. Typed, themeable, and built for real application workflows.",
   cleanUrls: true,
+  markdown: {
+    lineNumbers: true,
+    theme: { light: "github-light", dark: "github-dark-default" },
+  },
   lastUpdated: true,
   appearance: "dark",
   head: [

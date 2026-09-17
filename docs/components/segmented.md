@@ -4,6 +4,7 @@ description: Segmented component API, usage and live preview for Forza UI.
 ---
 <script setup>
 import ComponentPreview from '../.vitepress/theme/components/ComponentPreview.vue'
+import CodeExample from '../.vitepress/theme/components/CodeExample.vue'
 </script>
 
 # Segmented
@@ -18,18 +19,7 @@ State belongs to the parent. Compose this component with the props and slots bel
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { FzSegmented } from '@chrisdalbano/forza-ui'
-const view = ref('grid')
-const options = [{ value: 'grid', label: 'Grid' }, { value: 'list', label: 'List' }]
-</script>
-
-<template>
-  <FzSegmented v-model="view" label="Layout" :options="options" />
-</template>
-```
+<CodeExample name="FzSegmented" />
 
 Import the shared stylesheet once and wrap your app in `.fz-theme`. See [installation](/guide/installation).
 

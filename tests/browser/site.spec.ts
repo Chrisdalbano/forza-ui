@@ -22,6 +22,13 @@ for (const width of [390, 768, 1440])
             () => document.documentElement.scrollWidth <= innerWidth,
           ),
         ).toBe(true);
+        if (route === "/playground") {
+          expect(
+            await page
+              .locator(".code-example pre")
+              .evaluate((el) => getComputedStyle(el).backgroundColor),
+          ).toBe(theme === "dark" ? "rgb(13, 17, 23)" : "rgb(255, 255, 255)");
+        }
         const result = await new AxeBuilder({ page })
           .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
           .analyze();
@@ -116,4 +123,62 @@ test("scroll scene changes and reduced-motion reverts transforms", async ({
     )
     .toBe("");
   await expect(page.locator(".scene-tile").first()).toBeVisible();
+});
+
+test("hero collection and connected input focus", async ({ page }) => {
+  await page.goto("/");
+  const input = page.getByRole("textbox", { name: "Your next idea" });
+  await input.fill("A better interaction");
+  await expect(input).toBeFocused();
+  expect(await input.evaluate((el) => getComputedStyle(el).outlineStyle)).toBe(
+    "none",
+  );
+  await expect
+    .poll(() =>
+      input.evaluate(
+        (el) => getComputedStyle(el.parentElement!, "::after").transform,
+      ),
+    )
+    .toBe("matrix(1, 0, 0, 1, 0, 0)");
+  await page.getByRole("button", { name: "Add idea", exact: true }).click();
+  await expect(page.getByRole("list", { name: "Your ideas" })).toContainText(
+    "A better interaction",
+  );
+  await page
+    .getByRole("button", { name: "Remove A better interaction", exact: true })
+    .click();
+  await expect(input).toBeFocused();
+  await expect(
+    page.getByRole("list", { name: "Your ideas" }),
+  ).not.toContainText("A better interaction");
+});
+
+test("highlighted examples copy exact source and wrap without navigation", async ({
+  page,
+  context,
+}) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.goto("/playground?component=FzSelect");
+  const code = page.locator(".code-example");
+  await expect(code.locator(".code-filename")).toHaveText("SelectExample.vue");
+  await expect(code.locator(".shiki")).toContainText("ForzaOption[]");
+  expect(await code.locator(".line span[style]").count()).toBeGreaterThan(10);
+  await code.getByRole("button", { name: "Copy FzSelect example" }).click();
+  await expect(code.getByRole("status")).toHaveText("Copied to clipboard.");
+  const copied = await page.evaluate(() => navigator.clipboard.readText());
+  expect(copied.replaceAll("\r\n", "\n")).toBe(
+    await code.locator("code").textContent(),
+  );
+  await code.getByRole("button", { name: "Wrap code lines" }).click();
+  await expect(code).toHaveClass(/is-wrapped/);
+  await page
+    .getByRole("navigation", { name: "Component playground" })
+    .getByRole("button", { name: "Field", exact: true })
+    .click();
+  await expect(code.locator(".code-filename")).toHaveText("FieldExample.vue");
+  await expect(code.getByRole("status")).toHaveText("Source you can use.");
+  await page.goto("/components/field");
+  await expect(page.locator(".code-example .shiki")).toContainText(
+    "ref<string>",
+  );
 });
