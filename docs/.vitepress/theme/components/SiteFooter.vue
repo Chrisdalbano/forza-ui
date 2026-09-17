@@ -5,7 +5,7 @@
       <h2>Make it yours.</h2>
       <p>
         An independent open-source project by
-        <a href="https://chrisdalbano.com">Chrisdalbano</a>.
+        <a href="https://chrisdalbano.com">Chrisdalbano</a>, developed with AI assistance.
       </p>
     </div>
     <a class="site-button" href="/guide/installation">Start building</a>

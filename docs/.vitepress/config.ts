@@ -30,7 +30,7 @@ const names = [
 export default defineConfig({
   title: "Forza UI",
   description:
-    "Vue components with character. Typed, themeable, and built for real application workflows.",
+    "An independent Vue component library by Chrisdalbano, developed with AI assistance. Typed APIs, scoped themes, and application motion.",
   cleanUrls: true,
   transformPageData(pageData) {
     if (pageData.relativePath === "404.md") return;

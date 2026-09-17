@@ -4,6 +4,13 @@ Forza is a styled Vue library for teams that want its visual direction: condense
 
 It is an early library. Choose it because the components fit your application, not because it claims to replace every alternative.
 
+
+## How this project is made
+
+Forza UI is an independent project by Chrisdalbano, developed with AI assistance. Chrisdalbano sets the direction and reviews the visual experience. AI tools assist with research, implementation, documentation, and automated checks.
+
+This includes AI-generated code and copy. The repository makes the implementation and checks available for inspection; it does not claim that every change has had an independent human code review.
+
 ## Compared with shadcn-vue
 
 | Decision | Forza UI | shadcn-vue |

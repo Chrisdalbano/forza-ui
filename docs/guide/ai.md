@@ -2,6 +2,13 @@
 
 Give your assistant the actual API, not a screenshot and a guessed component name.
 
+
+## How this project is made
+
+Forza UI is an independent project by Chrisdalbano, developed with AI assistance. Chrisdalbano sets the direction and reviews the visual experience. AI tools assist with research, implementation, documentation, and automated checks.
+
+This includes AI-generated code and copy. The repository makes the implementation and checks available for inspection; it does not claim that every change has had an independent human code review.
+
 ## Machine-readable resources
 
 - [component-manifest.json](/component-manifest.json): versioned props, defaults, required fields, events, slots, source paths, and usage examples.

@@ -1,6 +1,6 @@
 # Forza UI CLI
 
-Copy Forza Vue components into your application, including their local dependencies, styles, and license notices. An MIT-licensed tool by [Chrisdalbano](https://chrisdalbano.com).
+Copy Forza Vue components into your application, including their local dependencies, styles, and license notices. An MIT-licensed tool by [Chrisdalbano](https://chrisdalbano.com), developed with AI assistance.
 
 See the [CLI guide](https://forzaui.chrisdalbano.com/guide/cli) for installation and configuration.
 
