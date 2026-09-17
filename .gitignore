@@ -1,0 +1,17 @@
+node_modules/
+**/dist/
+**/cache/
+**/.temp/
+**/.vite/
+**/registry/
+.firebase/
+test-results/
+playwright-report/
+*.tgz
+.env*
+!.env.example
+.smoke/
+
+**/.nuxt/
+**/.output/
+firebase-debug*.log

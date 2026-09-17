@@ -1,0 +1,745 @@
+# Forza UI 0.3.0
+
+# Use Forza with AI
+
+Give your assistant the actual API, not a screenshot and a guessed component name.
+
+## Machine-readable resources
+
+- [component-manifest.json](/component-manifest.json): versioned props, defaults, required fields, events, slots, source paths, and usage examples.
+- [llms.txt](/llms.txt): documentation entry points.
+- [llms-full.txt](/llms-full.txt): guides and component reference in plain text.
+- [AGENTS.md](https://github.com/Chrisdalbano/forza-ui/blob/main/AGENTS.md): contributor conventions.
+- `forza list --json`: the same manifest bundled with the CLI.
+
+API metadata is extracted from Vue source with Vue Language Tools. Examples and behavior notes are maintained alongside it. Run `npm run build:registry` after changing a contract.
+
+## A useful prompt
+
+```text
+Use Forza UI 0.3.0 and Vue 3.5 with script setup and TypeScript.
+Read https://forzaui.web.app/llms-full.txt and the component manifest.
+Use documented exports only. Keep business state in the parent.
+Import the stylesheet once and wrap the UI in .fz-theme.
+Use controlled models, stable IDs, visible labels and explicit events.
+Honor reduced motion. Do not add GSAP to application controls.
+Use FzTable sort state to derive sorted rows in the parent.
+Show your code and the checks you ran. Do not invent unsupported props.
+```
+
+## Boundaries
+
+This release provides static documentation and a local CLI. It does not run an MCP server, send prompts to a model, or collect application data. A manifest is a reference, not permission to run arbitrary commands. Review generated code and test it against your application.
+
+
+# Brand assets
+
+Forza's **Forward Fold** symbol uses a forward-leaning spine, two open counters, and a displaced foot. It is drawn on a 128-unit grid and paired with an outlined display wordmark.
+
+<img src="/brand/wordmark-paper.svg" alt="Forza UI wordmark" style="background:#101416;padding:24px;border-radius:8px;width:360px" />
+
+## Downloads
+
+- [Coral symbol](/brand/symbol-coral.svg)
+- [Ink symbol](/brand/symbol-ink.svg)
+- [Paper symbol](/brand/symbol-paper.svg)
+- [Ink wordmark](/brand/wordmark-ink.svg)
+- [Paper wordmark](/brand/wordmark-paper.svg)
+- [SVG favicon](/brand/favicon.svg) / <a href="/brand/favicon.ico" download>ICO favicon</a>
+- [Social PNG](/brand/social.png) / [WebP](/brand/social.webp)
+
+## Construction and usage
+
+Keep clear space of at least one quarter of the symbol's width. Use the favicon variant at small sizes. Do not stretch or redraw the wordmark. Use Ink on light backgrounds and Paper on dark backgrounds. Coral is the primary accent.
+
+The master lives in `brand/symbol-master.svg`. `scripts/brand.mjs` uses SVG.js and svgdom for vector construction, OpenType paths for lettering, SVGO for optimization, and Sharp for raster output. Regenerate with `npm run build:brand`. The ICO contains 16, 32, and 48px images. Touch icons are provided separately.
+
+Lucide remains the functional icon set. The symbol identifies Forza; controls use familiar, consistent pictograms.
+
+Forza source and symbol geometry are MIT licensed. Font-derived lettering retains the SIL Open Font License; see [font notices](/licenses/barlow-condensed-OFL.txt) and [Manrope notices](/licenses/manrope-OFL.txt). Please do not imply an official release or endorsement. Forza UI is independent of Riot Games and Microsoft/Turn 10.
+
+
+# CLI
+
+The CLI copies source into your project. It resolves local component imports, includes shared tokens, and adds exports to an index file. It does not run remote scripts or install dependencies.
+
+## Install
+
+```sh
+npm install -D https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.0/chrisdalbano-forza-ui-cli-0.3.0.tgz
+npx forza init
+npx forza add button field dialog
+```
+
+`init` writes `forza.config.json`. The default destination is `src/components/forza`. For Nuxt 4:
+
+```sh
+npx forza init --dir app/components/forza
+npx forza add button drawer
+```
+
+## Commands
+
+| Command                         | Behavior                                  |
+| ------------------------------- | ----------------------------------------- |
+| `forza list`                    | List components                           |
+| `forza list --json`             | Read the versioned API manifest           |
+| `forza init --dir src/ui/forza` | Set the source destination                |
+| `forza add button dialog`       | Copy components and local dependencies    |
+| `forza add drawer --dry-run`    | Validate without writing                  |
+| `forza add drawer --force`      | Explicitly replace edited component files |
+| `forza doctor`                  | Check config and peer declarations        |
+| `--cwd path/to/app`             | Target another project                    |
+
+Unknown names and paths outside the project are rejected. Local edits stop the add operation before writing. Identical files can be added again. The CLI never removes files.
+
+## After copying
+
+Install the peers listed by `init`, then import your generated local barrel:
+
+```ts
+import { FzButton, FzDialog } from "./components/forza";
+```
+
+The source barrel imports tokens. Keep the `.fz-theme` wrapper. You own copied files; updates are explicit.
+
+## Run from a checkout
+
+```sh
+npm ci
+npm run build:registry
+node packages/cli/bin/forza.mjs init --cwd ../my-app
+node packages/cli/bin/forza.mjs add button --cwd ../my-app
+```
+
+
+# Installation
+
+Forza requires Vue 3.5 or later. The current distribution is a versioned GitHub release, not an npm registry publication.
+
+## Install the release
+
+```sh
+npm install https://github.com/Chrisdalbano/forza-ui/releases/download/v0.3.0/chrisdalbano-forza-ui-0.3.0.tgz
+```
+
+npm installs the declared peers. If your package manager requires explicit peers:
+
+```sh
+npm install vue reka-ui @lucide/vue @formkit/auto-animate embla-carousel-vue
+```
+
+## Add the stylesheet and theme wrapper
+
+Import the stylesheet once in your application entry:
+
+```ts
+import "@chrisdalbano/forza-ui/style.css";
+```
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue";
+import { FzButton, FzField } from "@chrisdalbano/forza-ui";
+const name = ref("");
+</script>
+<template>
+  <main class="fz-theme">
+    <FzField v-model="name" label="Build name" />
+    <FzButton :disabled="!name.trim()">Save build</FzButton>
+  </main>
+</template>
+```
+
+The theme wrapper is required. Floating overlays inherit its theme. For Paper, add `data-theme="paper"`. Fonts belong to your application; system fallbacks work without font requests. See [theming](/guide/theming).
+
+## Build locally
+
+```sh
+git clone https://github.com/Chrisdalbano/forza-ui.git
+cd forza-ui
+npm ci
+npm run build:lib
+npm pack ./packages/vue
+```
+
+Install the resulting tarball into your app. The release contains ESM, declarations, CSS, source, and license notices. Marketing code and GSAP are excluded.
+
+
+# Forza UI
+
+Forza is a Vue component library for application interfaces. It combines a distinct visual language with typed props, controlled state, and reusable composition patterns.
+
+## What is included
+
+- 25 Vue components using Composition API and TypeScript.
+- Ink and Paper themes with scoped CSS custom properties.
+- Keyboard behavior and focus management through Reka UI.
+- Lucide icons, Embla carousels, and AutoAnimate list motion.
+- A source-copy CLI, machine-readable API manifest, and agent instructions.
+
+## Design and ownership
+
+Forza UI is an independent project by Christian D'Albano, developed with AI assistance. Its components grew out of a design exploration for BuildValue. The source is MIT licensed. It is not affiliated with Riot Games.
+
+## Choose your workflow
+
+[Install the package](/guide/installation) for shared updates. Use the [CLI](/guide/cli) when you want to own and edit the source. Explore every component in the [playground](/playground).
+
+This is an early 0.x release. Review changes before upgrading. Screen-reader certification and a broad browser matrix are not claimed.
+
+
+# Motion and accessibility
+
+Motion should explain a change without delaying it. Models update immediately; the presentation catches up.
+
+## Component behavior
+
+- Dialogs and drawers use separate entrance and exit timings. Focus returns to the opener.
+- Selects and menus use Reka's keyboard behavior and collision handling.
+- Lists animate addition, removal, and movement through AutoAnimate. Removed rows are inert while leaving.
+- Carousels use Embla, explicit controls, and no autoplay.
+- Tabs and segmented controls animate their selection indicator.
+
+Forza honors `prefers-reduced-motion`, including preference changes while the page is open. The landing uses GSAP separately. It is never a runtime dependency of the component package.
+
+## Your responsibilities
+
+Supply meaningful labels and titles. Keep stable IDs. Announce asynchronous results. Restore focus when your app removes a focused item. Do not rely on color alone. Put essential instructions outside tooltips.
+
+Automated browser and axe checks help catch regressions. They do not replace testing with a screen reader, touch input, zoom, and actual content. No WCAG certification is claimed.
+
+## Scroll behavior
+
+The site keeps native scrolling, with themed visible scrollbars. Desktop scenes respond to scroll position; narrow screens use explicit controls. Decorative sequences do not lock scrolling. Modal overlays lock the background only while open.
+
+
+# Vue and Nuxt
+
+Forza uses Vue 3.5 primitives and contains no application router, API client, or global store. Explicitly import components into Vue and Nuxt pages.
+
+## Nuxt package integration
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  css: ["@chrisdalbano/forza-ui/style.css"],
+});
+```
+
+```vue
+<!-- app/app.vue -->
+<template>
+  <div class="fz-theme"><NuxtPage /></div>
+</template>
+```
+
+```vue
+<!-- app/pages/index.vue -->
+<script setup lang="ts">
+import { FzButton } from "@chrisdalbano/forza-ui";
+</script>
+<template><FzButton>Start building</FzButton></template>
+```
+
+## Source-copy integration
+
+Use `forza init --dir app/components/forza`. Explicitly import from `~/components/forza` to avoid relying on generated component naming.
+
+## Server rendering
+
+Browser APIs run after mount. Overlay portals resolve the nearest theme wrapper on the client. Keep dialogs closed during initial SSR unless your flow handles client-only content. `useId` keeps control IDs stable.
+
+Verified with a Nuxt 4.5.2 production build: server-rendered content, client hydration, field editing, a select inside a drawer, and restored opener focus. The reproducible consumer fixture lives in `tests/fixtures/nuxt`. No Nuxt auto-registration module is included in this version.
+
+
+# Theming
+
+Tokens have three layers: raw values, semantic roles, and component settings. Prefer changing a semantic role rather than restyling individual controls.
+
+## Built-in themes
+
+```html
+<div class="fz-theme">Ink theme</div>
+<div class="fz-theme" data-theme="paper">Paper theme</div>
+```
+
+| Token            | Purpose                        |
+| ---------------- | ------------------------------ |
+| `--fz-bg`        | Application background         |
+| `--fz-surface`   | Panels and overlays            |
+| `--fz-raised`    | Hover and elevated surfaces    |
+| `--fz-text`      | Primary text                   |
+| `--fz-muted`     | Supporting text                |
+| `--fz-border`    | Control and surface boundaries |
+| `--fz-accent`    | Primary actions and focus      |
+| `--fz-on-accent` | Text on primary actions        |
+| `--fz-positive`  | Success feedback               |
+| `--fz-warning`   | Caution feedback               |
+| `--fz-info`      | Informational feedback         |
+
+## Customize a theme
+
+```css
+.fz-theme.my-product {
+  --fz-accent: #a8d6b5;
+  --fz-accent-hover: #c0e7cb;
+  --fz-on-accent: #101416;
+  --fz-font-body: "Inter", system-ui, sans-serif;
+  --fz-font-display: "Inter", system-ui, sans-serif;
+  --fz-font-mono: ui-monospace, monospace;
+}
+```
+
+Check contrast after changing colors. A theme wrapper should not clip overflow or use a transform: portals mount into the closest wrapper, and transforms change the containing block for fixed overlays.
+
+## Typography
+
+The site self-hosts Manrope, Barlow Condensed, and IBM Plex Mono. The package does not download fonts. Choose fonts in the host app and set the three font tokens. Supporting text on the presentation site uses a readable 14 to 18px scale.
+
+## Motion tokens
+
+`--fz-motion-fast` is 160ms, `--fz-motion-layout` 260ms, `--fz-motion-enter` 320ms, and `--fz-motion-exit` 180ms. Override them on your wrapper. Reduced-motion settings take precedence.
+
+
+# FzButton
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"variant","type":"\"primary\" | \"secondary\" | \"ghost\" | undefined","required":false,"default":"\"primary\""},{"name":"size","type":"\"md\" | \"sm\" | undefined","required":false,"default":"\"md\""},{"name":"disabled","type":"boolean | undefined","required":false,"default":null},{"name":"loading","type":"boolean | undefined","required":false,"default":null},{"name":"type","type":"\"button\" | \"submit\" | \"reset\" | undefined","required":false,"default":"\"button\""}],"events":[],"slots":[{"name":"default","type":"{}"},{"name":"trailing","type":"{}"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzButton } from '@chrisdalbano/forza-ui'
+function saveBuild() { /* your application action */ }
+</script>
+
+<template>
+  <FzButton @click="saveBuild">Save build</FzButton>
+</template>
+```
+
+# FzField
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"label","type":"string","required":true,"default":null},{"name":"hint","type":"string | undefined","required":false,"default":null},{"name":"error","type":"string | undefined","required":false,"default":null},{"name":"placeholder","type":"string | undefined","required":false,"default":null},{"name":"disabled","type":"boolean | undefined","required":false,"default":null},{"name":"type","type":"\"text\" | \"search\" | \"email\" | undefined","required":false,"default":null},{"name":"modelValue","type":"string","required":true,"default":null}],"events":[{"name":"update:modelValue","type":"[value: string]"}],"slots":[{"name":"leading","type":"{}"},{"name":"trailing","type":"{}"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzField } from '@chrisdalbano/forza-ui'
+const name = ref('')
+</script>
+
+<template>
+  <FzField v-model="name" label="Build name" />
+</template>
+```
+
+# FzSelect
+Single string selection. Supply a visible label. Disabled options are unavailable to keyboard and pointer input.
+
+{"props":[{"name":"label","type":"string","required":true,"default":null},{"name":"options","type":"readonly ForzaOption[]","required":true,"default":null},{"name":"placeholder","type":"string | undefined","required":false,"default":"\"Choose an option\""},{"name":"disabled","type":"boolean | undefined","required":false,"default":null},{"name":"name","type":"string | undefined","required":false,"default":null},{"name":"modelValue","type":"string","required":true,"default":null}],"events":[{"name":"update:modelValue","type":"[value: string]"}],"slots":[]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzSelect } from '@chrisdalbano/forza-ui'
+const role = ref('guardian')
+const roles = [{ value: 'guardian', label: 'Guardian' }]
+</script>
+
+<template>
+  <FzSelect v-model="role" label="Role" :options="roles" />
+</template>
+```
+
+# FzCheckbox
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"label","type":"string","required":true,"default":null},{"name":"description","type":"string | undefined","required":false,"default":null},{"name":"disabled","type":"boolean | undefined","required":false,"default":null},{"name":"name","type":"string | undefined","required":false,"default":null},{"name":"modelValue","type":"boolean | \"indeterminate\"","required":true,"default":null}],"events":[{"name":"update:modelValue","type":"[value: boolean | \"indeterminate\"]"}],"slots":[]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzCheckbox } from '@chrisdalbano/forza-ui'
+const shared = ref(false)
+</script>
+
+<template>
+  <FzCheckbox v-model="shared" label="Share with the team" />
+</template>
+```
+
+# FzSlider
+One numeric thumb. Arrow keys change by step; Home and End reach the bounds. The commit event marks completion.
+
+{"props":[{"name":"label","type":"string","required":true,"default":null},{"name":"min","type":"number | undefined","required":false,"default":"0"},{"name":"max","type":"number | undefined","required":false,"default":"100"},{"name":"step","type":"number | undefined","required":false,"default":"1"},{"name":"disabled","type":"boolean | undefined","required":false,"default":null},{"name":"unit","type":"string | undefined","required":false,"default":"\"\""},{"name":"name","type":"string | undefined","required":false,"default":null},{"name":"modelValue","type":"number","required":true,"default":null}],"events":[{"name":"update:modelValue","type":"[value: number]"},{"name":"commit","type":"[value: number]"}],"slots":[]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzSlider } from '@chrisdalbano/forza-ui'
+const budget = ref(3200)
+</script>
+
+<template>
+  <FzSlider v-model="budget" label="Gold" :min="1000" :max="6000" :step="100" />
+</template>
+```
+
+# FzSwitch
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"label","type":"string","required":true,"default":null},{"name":"disabled","type":"boolean | undefined","required":false,"default":null},{"name":"modelValue","type":"boolean","required":true,"default":null}],"events":[{"name":"update:modelValue","type":"[value: boolean]"}],"slots":[]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzSwitch } from '@chrisdalbano/forza-ui'
+const enabled = ref(true)
+</script>
+
+<template>
+  <FzSwitch v-model="enabled" label="Precise values" />
+</template>
+```
+
+# FzSegmented
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"label","type":"string","required":true,"default":null},{"name":"options","type":"readonly { value: string; label: string; }[]","required":true,"default":null},{"name":"modelValue","type":"string","required":true,"default":null}],"events":[{"name":"update:modelValue","type":"[value: string]"}],"slots":[]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzSegmented } from '@chrisdalbano/forza-ui'
+const view = ref('grid')
+const options = [{ value: 'grid', label: 'Grid' }, { value: 'list', label: 'List' }]
+</script>
+
+<template>
+  <FzSegmented v-model="view" label="Layout" :options="options" />
+</template>
+```
+
+# FzTabs
+The default slot renders the active panel. The parent owns its content. Arrow keys, Home, and End move selection.
+
+{"props":[{"name":"label","type":"string","required":true,"default":null},{"name":"options","type":"readonly { value: string; label: string; }[]","required":true,"default":null},{"name":"modelValue","type":"string","required":true,"default":null}],"events":[{"name":"update:modelValue","type":"[value: string]"}],"slots":[{"name":"default","type":"{ value: string; }"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzTabs } from '@chrisdalbano/forza-ui'
+const tab = ref('overview')
+const tabs = [{ value: 'overview', label: 'Overview' }, { value: 'history', label: 'History' }]
+</script>
+
+<template>
+  <FzTabs v-model="tab" label="Details" :options="tabs"><p>{{ tab }}</p></FzTabs>
+</template>
+```
+
+# FzStepper
+Steps begin at 1. The parent owns validation and content panels. Disable steps until prerequisites are satisfied. Linear mode prevents jumping ahead of the next step.
+
+{"props":[{"name":"steps","type":"readonly ForzaStep[]","required":true,"default":null},{"name":"label","type":"string","required":true,"default":null},{"name":"linear","type":"boolean | undefined","required":false,"default":"true"},{"name":"modelValue","type":"number","required":true,"default":null}],"events":[{"name":"update:modelValue","type":"[value: number]"}],"slots":[]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzStepper } from '@chrisdalbano/forza-ui'
+const step = ref(1)
+const steps = [{ title: 'Choose' }, { title: 'Configure' }, { title: 'Review' }]
+</script>
+
+<template>
+  <FzStepper v-model="step" label="Setup" :steps="steps" />
+</template>
+```
+
+# FzPagination
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"total","type":"number","required":true,"default":null},{"name":"pageSize","type":"number | undefined","required":false,"default":"5"},{"name":"label","type":"string | undefined","required":false,"default":"\"Pagination\""},{"name":"modelValue","type":"number","required":true,"default":null}],"events":[{"name":"update:modelValue","type":"[value: number]"}],"slots":[]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzPagination } from '@chrisdalbano/forza-ui'
+const page = ref(1)
+</script>
+
+<template>
+  <FzPagination v-model="page" :total="100" :page-size="10" />
+</template>
+```
+
+# FzAccordion
+Single, collapsible expansion. An empty model closes every item. Custom content belongs in the default scoped slot.
+
+{"props":[{"name":"items","type":"readonly ForzaAccordionItem[]","required":true,"default":null},{"name":"label","type":"string","required":true,"default":null},{"name":"disabled","type":"boolean | undefined","required":false,"default":null},{"name":"modelValue","type":"string | undefined","required":false,"default":"\"\""}],"events":[{"name":"update:modelValue","type":"[value: string]"}],"slots":[{"name":"title","type":"{ item: ForzaAccordionItem; }"},{"name":"default","type":"{ item: ForzaAccordionItem; }"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzAccordion } from '@chrisdalbano/forza-ui'
+const expanded = ref('')
+const guide = [{ value: 'start', title: 'Where do I start?', content: 'Choose a role and set a budget.' }]
+</script>
+
+<template>
+  <FzAccordion v-model="expanded" label="Guide" :items="guide" />
+</template>
+```
+
+# FzCarousel
+Slide indices begin at 0. Embla handles pointer and touch dragging. Inactive slides are inert. No autoplay. Items require stable IDs.
+
+{"props":[{"name":"items","type":"readonly T[]","required":true,"default":null},{"name":"label","type":"string","required":true,"default":null},{"name":"modelValue","type":"number | undefined","required":false,"default":"0"}],"events":[{"name":"update:modelValue","type":"[value: number]"}],"slots":[{"name":"default","type":"{ item: T; index: number; }"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzCarousel } from '@chrisdalbano/forza-ui'
+const slide = ref(0)
+const builds = [{ id: 1, name: 'Guardian' }, { id: 2, name: 'Duelist' }]
+</script>
+
+<template>
+  <FzCarousel v-model="slide" :items="builds" label="Builds">
+    <template #default="{ item }">{{ item.name }}</template>
+  </FzCarousel>
+</template>
+```
+
+# FzDropdown
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"label","type":"string","required":true,"default":null},{"name":"items","type":"readonly ForzaMenuItem[]","required":true,"default":null},{"name":"heading","type":"string | undefined","required":false,"default":null},{"name":"disabled","type":"boolean | undefined","required":false,"default":null},{"name":"open","type":"boolean | undefined","required":false,"default":"false"}],"events":[{"name":"update:open","type":"[value: boolean]"},{"name":"select","type":"[value: string]"}],"slots":[{"name":"trigger","type":"{}"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzDropdown } from '@chrisdalbano/forza-ui'
+const action = ref('')
+const actions = [{ value: 'duplicate', label: 'Duplicate' }]
+</script>
+
+<template>
+  <FzDropdown label="Actions" :items="actions" @select="action = $event" />
+</template>
+```
+
+# FzDialog
+Escape closes the dialog. Focus is trapped while open and returned to the opener. Exit motion completes before unmount. Supply an informative title.
+
+{"props":[{"name":"title","type":"string","required":true,"default":null},{"name":"description","type":"string | undefined","required":false,"default":null},{"name":"closeOnOutside","type":"boolean | undefined","required":false,"default":"true"},{"name":"placement","type":"\"center\" | \"right\" | \"bottom\" | undefined","required":false,"default":"\"center\""},{"name":"modelValue","type":"boolean","required":true,"default":null}],"events":[{"name":"update:modelValue","type":"[value: boolean]"}],"slots":[{"name":"default","type":"{ close: () => boolean; }"},{"name":"footer","type":"{ close: () => boolean; }"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzDialog } from '@chrisdalbano/forza-ui'
+const open = ref(false)
+</script>
+
+<template>
+  <button @click="open = true">Open</button>
+  <FzDialog v-model="open" title="Build details"><p>Your build is ready.</p></FzDialog>
+</template>
+```
+
+# FzDrawer
+Shares the dialog focus contract. Right and bottom placement are supported. No drag dismissal in this release.
+
+{"props":[{"name":"title","type":"string","required":true,"default":null},{"name":"description","type":"string | undefined","required":false,"default":null},{"name":"side","type":"\"right\" | \"bottom\" | undefined","required":false,"default":"\"right\""},{"name":"closeOnOutside","type":"boolean | undefined","required":false,"default":"true"},{"name":"modelValue","type":"boolean","required":true,"default":null}],"events":[{"name":"update:modelValue","type":"[value: boolean]"}],"slots":[{"name":"default","type":"{ close: () => boolean; }"},{"name":"footer","type":"{ close: () => boolean; }"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzDrawer } from '@chrisdalbano/forza-ui'
+const open = ref(false)
+</script>
+
+<template>
+  <button @click="open = true">Open filters</button>
+  <FzDrawer v-model="open" title="Filters" side="right"><p>Your filters.</p></FzDrawer>
+</template>
+```
+
+# FzPopover
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"label","type":"string","required":true,"default":null},{"name":"open","type":"boolean | undefined","required":false,"default":"false"}],"events":[{"name":"update:open","type":"[value: boolean]"}],"slots":[{"name":"trigger","type":"{}"},{"name":"default","type":"{ close: () => boolean; }"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzPopover } from '@chrisdalbano/forza-ui'
+
+</script>
+
+<template>
+  <FzPopover label="Build details">Three items selected.</FzPopover>
+</template>
+```
+
+# FzTooltip
+Use one focusable trigger. Essential instructions should remain visible elsewhere.
+
+{"props":[{"name":"text","type":"string","required":true,"default":null},{"name":"delay","type":"number | undefined","required":false,"default":"250"}],"events":[],"slots":[{"name":"default","type":"{}"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzTooltip } from '@chrisdalbano/forza-ui'
+
+</script>
+
+<template>
+  <FzTooltip text="Tune your build"><button type="button">Settings</button></FzTooltip>
+</template>
+```
+
+# FzTable
+Sorting is controlled: use the emitted sort value to sort or request rows in the parent. Pagination is separate. Supply unique row IDs. No virtualization in this release.
+
+{"props":[{"name":"rows","type":"readonly T[]","required":true,"default":null},{"name":"columns","type":"readonly ForzaColumn[]","required":true,"default":null},{"name":"label","type":"string","required":true,"default":null},{"name":"sort","type":"ForzaSort | undefined","required":false,"default":null}],"events":[{"name":"update:sort","type":"[value: ForzaSort | undefined]"}],"slots":[{"name":"cell","type":"{ row: T; column: ForzaColumn; value: unknown; }"},{"name":"empty","type":"{}"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzTable } from '@chrisdalbano/forza-ui'
+const sort = ref({ key: 'gold', direction: 'asc' as 'asc' | 'desc' })
+const rows = [{ id: 1, name: 'Sunbreaker', gold: 3200 }]
+const columns = [{ key: 'name', label: 'Item' }, { key: 'gold', label: 'Gold', sortable: true }]
+</script>
+
+<template>
+  <FzTable v-model:sort="sort" :rows="rows" :columns="columns" label="Items" />
+</template>
+```
+
+# FzList
+Use stable, unique item IDs. Mutate the parent array to add, remove, or reorder. Leaving rows become inert immediately.
+
+{"props":[{"name":"items","type":"readonly T[]","required":true,"default":null},{"name":"label","type":"string","required":true,"default":null},{"name":"motionDisabled","type":"boolean | undefined","required":false,"default":null},{"name":"duration","type":"number | undefined","required":false,"default":null}],"events":[],"slots":[{"name":"default","type":"{ item: T; index: number; }"},{"name":"empty","type":"any"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzList } from '@chrisdalbano/forza-ui'
+const builds = ref([{ id: 1, name: 'Guardian' }])
+</script>
+
+<template>
+  <FzList :items="builds" label="Builds">
+    <template #default="{ item }">{{ item.name }}</template>
+    <template #empty>No builds yet.</template>
+  </FzList>
+</template>
+```
+
+# FzAlert
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"title","type":"string","required":true,"default":null},{"name":"tone","type":"\"info\" | \"success\" | \"warning\" | \"danger\" | undefined","required":false,"default":"\"info\""}],"events":[],"slots":[{"name":"default","type":"{}"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzAlert } from '@chrisdalbano/forza-ui'
+
+</script>
+
+<template>
+  <FzAlert title="Build saved" tone="success">Your changes are ready.</FzAlert>
+</template>
+```
+
+# FzBadge
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"tone","type":"\"warning\" | \"neutral\" | \"positive\" | \"accent\" | undefined","required":false,"default":"\"neutral\""}],"events":[],"slots":[{"name":"default","type":"{}"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzBadge } from '@chrisdalbano/forza-ui'
+
+</script>
+
+<template>
+  <FzBadge tone="positive">Ready</FzBadge>
+</template>
+```
+
+# FzMeter
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"value","type":"number","required":true,"default":null},{"name":"max","type":"number | undefined","required":false,"default":"100"},{"name":"label","type":"string","required":true,"default":null},{"name":"tone","type":"\"warning\" | \"positive\" | \"accent\" | undefined","required":false,"default":"\"positive\""}],"events":[],"slots":[]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzMeter } from '@chrisdalbano/forza-ui'
+
+</script>
+
+<template>
+  <FzMeter :value="72" :max="100" label="Budget used" />
+</template>
+```
+
+# FzStat
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"label","type":"string","required":true,"default":null},{"name":"value","type":"string","required":true,"default":null},{"name":"detail","type":"string | undefined","required":false,"default":null}],"events":[],"slots":[]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzStat } from '@chrisdalbano/forza-ui'
+
+</script>
+
+<template>
+  <FzStat value="3,200" label="Gold budget" />
+</template>
+```
+
+# FzPanel
+State belongs to the parent. Compose this component with the props and slots below.
+
+{"props":[{"name":"title","type":"string | undefined","required":false,"default":null},{"name":"eyebrow","type":"string | undefined","required":false,"default":null}],"events":[],"slots":[{"name":"action","type":"{}"},{"name":"default","type":"{}"},{"name":"footer","type":"{}"}]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzPanel } from '@chrisdalbano/forza-ui'
+
+</script>
+
+<template>
+  <FzPanel title="Workspace"><p>Compose your interface here.</p></FzPanel>
+</template>
+```
+
+# FzIcon
+Uses Lucide. Omit label for decorative icons; supply label when the icon conveys meaning on its own.
+
+{"props":[{"name":"name","type":"\"sort\" | \"search\" | \"info\" | \"arrowLeft\" | \"minus\" | \"settings\" | \"more\" | \"arrowUpRight\" | \"arrowRight\" | \"plus\" | \"close\" | \"check\" | \"shield\" | \"swords\" | \"zap\" | \"flame\" | \"sun\" | \"moon\" | \"loader\" | \"trash\" | \"undo\" | \"chevronDown\" | \"grip\"","required":true,"default":null},{"name":"size","type":"number | undefined","required":false,"default":"18"},{"name":"label","type":"string | undefined","required":false,"default":null},{"name":"strokeWidth","type":"number | undefined","required":false,"default":"1.75"}],"events":[],"slots":[]}
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FzIcon } from '@chrisdalbano/forza-ui'
+
+</script>
+
+<template>
+  <FzIcon name="shield" :size="24" label="Guardian role" />
+</template>
+```
+

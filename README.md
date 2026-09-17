@@ -1,0 +1,37 @@
+# Forza UI
+
+Vue components with character. Typed APIs, scoped themes, and application-focused motion.
+
+[Documentation](https://forzaui.web.app) / [Playground](https://forzaui.web.app/playground) / [Installation](https://forzaui.web.app/guide/installation)
+
+An independent project by Christian D'Albano, developed with AI assistance. Includes 25 components, Ink and Paper themes, a source-copy CLI, and generated API metadata for people and agents.
+
+## Develop
+
+```sh
+npm ci
+npm run build:registry
+npm run dev
+```
+
+## Check and build
+
+```sh
+npm run typecheck
+npm test
+npm run build
+npx playwright install chromium
+npm run test:browser
+```
+
+## Structure
+
+- `packages/vue`: source, tokens, ESM build and declarations.
+- `packages/cli`: offline source-copy CLI with conflict protection.
+- `docs`: VitePress site, SPA playground, guides and generated API pages.
+- `meta`: maintained usage examples and behavior notes.
+- `brand`: SVG master. Generate derivatives with `scripts/brand.mjs`.
+
+Release tarballs are distributed through GitHub Releases. No npm registry publication is claimed. Vue SSR, the static site, and a Nuxt 4.5.2 production consumer are verified. See tests/fixtures/nuxt for the consumer fixture.
+
+MIT licensed. Third-party notices are preserved. GSAP belongs to the marketing site, not the component package. Not affiliated with Riot Games or Microsoft/Turn 10.

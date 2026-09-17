@@ -1,0 +1,157 @@
+/* Primitive -> semantic -> component. Scope every theme to a provider. */
+.fz-theme {
+  --fz-ink-950: #101416;
+  --fz-ink-900: #181e21;
+  --fz-ink-800: #242d31;
+  --fz-ink-600: #465257;
+  --fz-paper-100: #f2efe6;
+  --fz-paper-300: #c9cec8;
+  --fz-signal-500: #ff705b;
+  --fz-signal-300: #ff9787;
+  --fz-mint-400: #a8d6b5;
+  --fz-gold-400: #e3c38c;
+  --fz-blue-400: #a3c8df;
+  --fz-space-1: 4px;
+  --fz-space-2: 8px;
+  --fz-space-3: 12px;
+  --fz-space-4: 16px;
+  --fz-space-6: 24px;
+  --fz-space-8: 32px;
+  --fz-font-body: "Manrope", system-ui, sans-serif;
+  --fz-font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --fz-font-mono: "IBM Plex Mono", monospace;
+  --fz-bg: var(--fz-ink-950);
+  --fz-surface: var(--fz-ink-900);
+  --fz-raised: var(--fz-ink-800);
+  --fz-border: var(--fz-ink-600);
+  --fz-text: var(--fz-paper-100);
+  --fz-muted: var(--fz-paper-300);
+  --fz-accent: var(--fz-signal-500);
+  --fz-accent-hover: var(--fz-signal-300);
+  --fz-on-accent: var(--fz-ink-950);
+  --fz-positive: var(--fz-mint-400);
+  --fz-warning: var(--fz-gold-400);
+  --fz-info: var(--fz-blue-400);
+  --fz-button-bg: var(--fz-accent);
+  --fz-button-fg: var(--fz-on-accent);
+  --fz-panel-bg: var(--fz-surface);
+  --fz-field-bg: var(--fz-bg);
+  --fz-motion-fast: 160ms;
+  --fz-motion-layout: 260ms;
+  --fz-motion-enter: 320ms;
+  --fz-motion-exit: 180ms;
+  --fz-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --fz-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --fz-duration: var(--fz-motion-fast);
+  --fz-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --fz-radius: 3px;
+  color: var(--fz-text);
+  background: var(--fz-bg);
+  font-family: var(--fz-font-body);
+  color-scheme: dark;
+}
+.fz-theme[data-theme="paper"] {
+  --fz-bg: #eeeae0;
+  --fz-surface: #faf7ef;
+  --fz-raised: #e4e0d6;
+  --fz-border: #9c9e94;
+  --fz-text: #192124;
+  --fz-muted: #515d5b;
+  --fz-accent: #ad3626;
+  --fz-accent-hover: #902a1d;
+  --fz-on-accent: #fff7ed;
+  --fz-positive: #285f3e;
+  --fz-warning: #785619;
+  --fz-info: #315e79;
+  color-scheme: light;
+}
+.fz-theme *,
+.fz-theme *::before,
+.fz-theme *::after {
+  box-sizing: border-box;
+}
+.fz-theme :focus-visible {
+  outline: 2px solid var(--fz-accent);
+  outline-offset: 4px;
+}
+.fz-theme button,
+.fz-theme input,
+.fz-theme select {
+  font: inherit;
+}
+.fz-theme button {
+  cursor: pointer;
+}
+.fz-theme button:disabled {
+  cursor: not-allowed;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fz-theme *,
+  .fz-theme *::before,
+  .fz-theme *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.fz-state-enter-active {
+  transition:
+    opacity var(--fz-motion-fast) var(--fz-ease-out),
+    transform var(--fz-motion-fast) var(--fz-ease-out);
+}
+.fz-state-leave-active {
+  transition:
+    opacity 100ms ease-in,
+    transform 100ms ease-in;
+}
+.fz-state-enter-from {
+  opacity: 0;
+  transform: translateY(4px);
+}
+.fz-state-leave-to {
+  opacity: 0;
+  transform: translateY(-3px);
+}
+
+.fz-theme .fz-floating {
+  z-index: 120;
+  background: var(--fz-surface);
+  color: var(--fz-text);
+  border: 1px solid var(--fz-border);
+  border-radius: 6px;
+  box-shadow: 0 16px 48px rgb(0 0 0 / 0.24);
+  transform-origin: var(
+    --reka-popover-content-transform-origin,
+    var(--reka-select-content-transform-origin, center top)
+  );
+}
+.fz-theme .fz-floating[data-state="open"],
+.fz-theme .fz-floating[data-state="delayed-open"],
+.fz-theme .fz-floating[data-state="instant-open"] {
+  animation: fz-float-in var(--fz-motion-enter) var(--fz-ease-out);
+}
+.fz-theme .fz-floating[data-state="closed"] {
+  animation: fz-float-out var(--fz-motion-exit) var(--fz-ease-in);
+}
+@keyframes fz-float-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fz-float-out {
+  to {
+    opacity: 0;
+    transform: translateY(-2px) scale(0.98);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fz-theme .fz-floating {
+    animation: none !important;
+  }
+}

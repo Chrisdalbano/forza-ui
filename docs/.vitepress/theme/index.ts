@@ -1,0 +1,11 @@
+import DefaultTheme from "vitepress/theme";
+import type { Theme } from "vitepress";
+import Layout from "./Layout.vue";
+import "@fontsource/manrope/latin-400.css";
+import "@fontsource/manrope/latin-600.css";
+import "@fontsource/barlow-condensed/latin-600.css";
+import "@fontsource/barlow-condensed/latin-700.css";
+import "@fontsource/ibm-plex-mono/latin-400.css";
+import "@forza";
+import "./site.css";
+export default { extends: DefaultTheme, Layout } satisfies Theme;

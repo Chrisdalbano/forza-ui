@@ -1,0 +1,227 @@
+[
+  {
+    "name": "FzButton",
+    "props": "variant, size, loading, disabled, type",
+    "state": "native click",
+    "slots": "default, trailing",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzButton } from '@chrisdalbano/forza-ui'\nfunction saveBuild() { /* your application action */ }\n</script>\n\n<template>\n  <FzButton @click=\"saveBuild\">Save build</FzButton>\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "button"
+  },
+  {
+    "name": "FzField",
+    "props": "label, hint, error, type, placeholder, disabled",
+    "state": "v-model: string",
+    "slots": "leading, trailing",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzField } from '@chrisdalbano/forza-ui'\nconst name = ref('')\n</script>\n\n<template>\n  <FzField v-model=\"name\" label=\"Build name\" />\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "field"
+  },
+  {
+    "name": "FzSelect",
+    "props": "label, options, placeholder, disabled, name",
+    "state": "v-model: string",
+    "slots": "none",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzSelect } from '@chrisdalbano/forza-ui'\nconst role = ref('guardian')\nconst roles = [{ value: 'guardian', label: 'Guardian' }]\n</script>\n\n<template>\n  <FzSelect v-model=\"role\" label=\"Role\" :options=\"roles\" />\n</template>",
+    "notes": "Single string selection. Supply a visible label. Disabled options are unavailable to keyboard and pointer input.",
+    "slug": "select"
+  },
+  {
+    "name": "FzCheckbox",
+    "props": "label, description, disabled, name",
+    "state": "v-model: boolean or indeterminate",
+    "slots": "none",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzCheckbox } from '@chrisdalbano/forza-ui'\nconst shared = ref(false)\n</script>\n\n<template>\n  <FzCheckbox v-model=\"shared\" label=\"Share with the team\" />\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "checkbox"
+  },
+  {
+    "name": "FzSlider",
+    "props": "label, min, max, step, unit, disabled, name",
+    "state": "v-model: number; commit(value)",
+    "slots": "none",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzSlider } from '@chrisdalbano/forza-ui'\nconst budget = ref(3200)\n</script>\n\n<template>\n  <FzSlider v-model=\"budget\" label=\"Gold\" :min=\"1000\" :max=\"6000\" :step=\"100\" />\n</template>",
+    "notes": "One numeric thumb. Arrow keys change by step; Home and End reach the bounds. The commit event marks completion.",
+    "slug": "slider"
+  },
+  {
+    "name": "FzSwitch",
+    "props": "label, disabled",
+    "state": "v-model: boolean",
+    "slots": "none",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzSwitch } from '@chrisdalbano/forza-ui'\nconst enabled = ref(true)\n</script>\n\n<template>\n  <FzSwitch v-model=\"enabled\" label=\"Precise values\" />\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "switch"
+  },
+  {
+    "name": "FzSegmented",
+    "props": "label, options",
+    "state": "v-model: string",
+    "slots": "none",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzSegmented } from '@chrisdalbano/forza-ui'\nconst view = ref('grid')\nconst options = [{ value: 'grid', label: 'Grid' }, { value: 'list', label: 'List' }]\n</script>\n\n<template>\n  <FzSegmented v-model=\"view\" label=\"Layout\" :options=\"options\" />\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "segmented"
+  },
+  {
+    "name": "FzTabs",
+    "props": "label, options",
+    "state": "v-model: string",
+    "slots": "default",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzTabs } from '@chrisdalbano/forza-ui'\nconst tab = ref('overview')\nconst tabs = [{ value: 'overview', label: 'Overview' }, { value: 'history', label: 'History' }]\n</script>\n\n<template>\n  <FzTabs v-model=\"tab\" label=\"Details\" :options=\"tabs\"><p>{{ tab }}</p></FzTabs>\n</template>",
+    "notes": "The default slot renders the active panel. The parent owns its content. Arrow keys, Home, and End move selection.",
+    "slug": "tabs"
+  },
+  {
+    "name": "FzStepper",
+    "props": "steps, label, linear",
+    "state": "v-model: number (1-based)",
+    "slots": "none",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzStepper } from '@chrisdalbano/forza-ui'\nconst step = ref(1)\nconst steps = [{ title: 'Choose' }, { title: 'Configure' }, { title: 'Review' }]\n</script>\n\n<template>\n  <FzStepper v-model=\"step\" label=\"Setup\" :steps=\"steps\" />\n</template>",
+    "notes": "Steps begin at 1. The parent owns validation and content panels. Disable steps until prerequisites are satisfied. Linear mode prevents jumping ahead of the next step.",
+    "slug": "stepper"
+  },
+  {
+    "name": "FzPagination",
+    "props": "total, pageSize, label",
+    "state": "v-model: number (1-based)",
+    "slots": "none",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzPagination } from '@chrisdalbano/forza-ui'\nconst page = ref(1)\n</script>\n\n<template>\n  <FzPagination v-model=\"page\" :total=\"100\" :page-size=\"10\" />\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "pagination"
+  },
+  {
+    "name": "FzAccordion",
+    "props": "items, label, disabled",
+    "state": "v-model: string (single, collapsible)",
+    "slots": "title({item}), default({item})",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzAccordion } from '@chrisdalbano/forza-ui'\nconst expanded = ref('')\nconst guide = [{ value: 'start', title: 'Where do I start?', content: 'Choose a role and set a budget.' }]\n</script>\n\n<template>\n  <FzAccordion v-model=\"expanded\" label=\"Guide\" :items=\"guide\" />\n</template>",
+    "notes": "Single, collapsible expansion. An empty model closes every item. Custom content belongs in the default scoped slot.",
+    "slug": "accordion"
+  },
+  {
+    "name": "FzCarousel",
+    "props": "items with stable id, label",
+    "state": "v-model: number (0-based)",
+    "slots": "default({item,index})",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzCarousel } from '@chrisdalbano/forza-ui'\nconst slide = ref(0)\nconst builds = [{ id: 1, name: 'Guardian' }, { id: 2, name: 'Duelist' }]\n</script>\n\n<template>\n  <FzCarousel v-model=\"slide\" :items=\"builds\" label=\"Builds\">\n    <template #default=\"{ item }\">{{ item.name }}</template>\n  </FzCarousel>\n</template>",
+    "notes": "Slide indices begin at 0. Embla handles pointer and touch dragging. Inactive slides are inert. No autoplay. Items require stable IDs.",
+    "slug": "carousel"
+  },
+  {
+    "name": "FzDropdown",
+    "props": "label, items, heading, disabled",
+    "state": "v-model:open; select(value)",
+    "slots": "trigger",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzDropdown } from '@chrisdalbano/forza-ui'\nconst action = ref('')\nconst actions = [{ value: 'duplicate', label: 'Duplicate' }]\n</script>\n\n<template>\n  <FzDropdown label=\"Actions\" :items=\"actions\" @select=\"action = $event\" />\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "dropdown"
+  },
+  {
+    "name": "FzDialog",
+    "props": "title, description, closeOnOutside, placement",
+    "state": "v-model: boolean",
+    "slots": "default({close}), footer({close})",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzDialog } from '@chrisdalbano/forza-ui'\nconst open = ref(false)\n</script>\n\n<template>\n  <button @click=\"open = true\">Open</button>\n  <FzDialog v-model=\"open\" title=\"Build details\"><p>Your build is ready.</p></FzDialog>\n</template>",
+    "notes": "Escape closes the dialog. Focus is trapped while open and returned to the opener. Exit motion completes before unmount. Supply an informative title.",
+    "slug": "dialog"
+  },
+  {
+    "name": "FzDrawer",
+    "props": "title, description, side, closeOnOutside",
+    "state": "v-model: boolean",
+    "slots": "default({close}), footer({close})",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzDrawer } from '@chrisdalbano/forza-ui'\nconst open = ref(false)\n</script>\n\n<template>\n  <button @click=\"open = true\">Open filters</button>\n  <FzDrawer v-model=\"open\" title=\"Filters\" side=\"right\"><p>Your filters.</p></FzDrawer>\n</template>",
+    "notes": "Shares the dialog focus contract. Right and bottom placement are supported. No drag dismissal in this release.",
+    "slug": "drawer"
+  },
+  {
+    "name": "FzPopover",
+    "props": "label",
+    "state": "v-model:open",
+    "slots": "trigger, default({close})",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzPopover } from '@chrisdalbano/forza-ui'\n\n</script>\n\n<template>\n  <FzPopover label=\"Build details\">Three items selected.</FzPopover>\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "popover"
+  },
+  {
+    "name": "FzTooltip",
+    "props": "text, delay",
+    "state": "hover/focus managed by primitive",
+    "slots": "default: one focusable trigger",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzTooltip } from '@chrisdalbano/forza-ui'\n\n</script>\n\n<template>\n  <FzTooltip text=\"Tune your build\"><button type=\"button\">Settings</button></FzTooltip>\n</template>",
+    "notes": "Use one focusable trigger. Essential instructions should remain visible elsewhere.",
+    "slug": "tooltip"
+  },
+  {
+    "name": "FzTable",
+    "props": "rows, columns, label",
+    "state": "v-model:sort; parent sorts rows",
+    "slots": "cell({row,column,value}), empty",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzTable } from '@chrisdalbano/forza-ui'\nconst sort = ref({ key: 'gold', direction: 'asc' as 'asc' | 'desc' })\nconst rows = [{ id: 1, name: 'Sunbreaker', gold: 3200 }]\nconst columns = [{ key: 'name', label: 'Item' }, { key: 'gold', label: 'Gold', sortable: true }]\n</script>\n\n<template>\n  <FzTable v-model:sort=\"sort\" :rows=\"rows\" :columns=\"columns\" label=\"Items\" />\n</template>",
+    "notes": "Sorting is controlled: use the emitted sort value to sort or request rows in the parent. Pagination is separate. Supply unique row IDs. No virtualization in this release.",
+    "slug": "table"
+  },
+  {
+    "name": "FzList",
+    "props": "items, label, motionDisabled, duration",
+    "state": "parent owns mutations",
+    "slots": "default({item,index}), empty",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzList } from '@chrisdalbano/forza-ui'\nconst builds = ref([{ id: 1, name: 'Guardian' }])\n</script>\n\n<template>\n  <FzList :items=\"builds\" label=\"Builds\">\n    <template #default=\"{ item }\">{{ item.name }}</template>\n    <template #empty>No builds yet.</template>\n  </FzList>\n</template>",
+    "notes": "Use stable, unique item IDs. Mutate the parent array to add, remove, or reorder. Leaving rows become inert immediately.",
+    "slug": "list"
+  },
+  {
+    "name": "FzAlert",
+    "props": "title, tone",
+    "state": "status; danger uses alert",
+    "slots": "default",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzAlert } from '@chrisdalbano/forza-ui'\n\n</script>\n\n<template>\n  <FzAlert title=\"Build saved\" tone=\"success\">Your changes are ready.</FzAlert>\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "alert"
+  },
+  {
+    "name": "FzBadge",
+    "props": "tone",
+    "state": "presentational",
+    "slots": "default",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzBadge } from '@chrisdalbano/forza-ui'\n\n</script>\n\n<template>\n  <FzBadge tone=\"positive\">Ready</FzBadge>\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "badge"
+  },
+  {
+    "name": "FzMeter",
+    "props": "value, max, label, tone",
+    "state": "presentational",
+    "slots": "none",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzMeter } from '@chrisdalbano/forza-ui'\n\n</script>\n\n<template>\n  <FzMeter :value=\"72\" :max=\"100\" label=\"Budget used\" />\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "meter"
+  },
+  {
+    "name": "FzStat",
+    "props": "value, label, detail",
+    "state": "presentational",
+    "slots": "none",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzStat } from '@chrisdalbano/forza-ui'\n\n</script>\n\n<template>\n  <FzStat value=\"3,200\" label=\"Gold budget\" />\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "stat"
+  },
+  {
+    "name": "FzPanel",
+    "props": "title, eyebrow",
+    "state": "presentational",
+    "slots": "default, action, footer",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzPanel } from '@chrisdalbano/forza-ui'\n\n</script>\n\n<template>\n  <FzPanel title=\"Workspace\"><p>Compose your interface here.</p></FzPanel>\n</template>",
+    "notes": "State belongs to the parent. Compose this component with the props and slots below.",
+    "slug": "panel"
+  },
+  {
+    "name": "FzIcon",
+    "props": "name, size, strokeWidth, label",
+    "state": "decorative unless labeled",
+    "slots": "none",
+    "example": "<script setup lang=\"ts\">\nimport { ref } from 'vue'\nimport { FzIcon } from '@chrisdalbano/forza-ui'\n\n</script>\n\n<template>\n  <FzIcon name=\"shield\" :size=\"24\" label=\"Guardian role\" />\n</template>",
+    "notes": "Uses Lucide. Omit label for decorative icons; supply label when the icon conveys meaning on its own.",
+    "slug": "icon"
+  }
+]
