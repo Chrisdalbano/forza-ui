@@ -20,25 +20,6 @@ onMounted(async () => {
   media.add(
     "(prefers-reduced-motion: no-preference)",
     () => {
-      gsap.from(".force-letter", {
-        yPercent: 115,
-        rotate: 6,
-        stagger: 0.065,
-        duration: 1.15,
-        ease: "power4.out",
-        clearProps: "all",
-      });
-      gsap.to(".force-mark", {
-        rotate: 65,
-        yPercent: 20,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".presentation-hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        },
-      });
       root.value
         ?.querySelectorAll(".presentation-section")
         .forEach((section) => {

@@ -1,28 +1,12 @@
 <script setup lang="ts">
+import HeroWordmark from "./HeroWordmark.vue";
 import { FzIcon } from "@forza";
 import { componentCatalog } from "../componentCatalog";
 import library from "../../../../packages/vue/package.json";
 </script>
 <template>
   <section class="presentation-hero">
-    <div class="force-title">
-      <h1 aria-label="Forza UI">
-        <span
-          v-for="(letter, i) in 'FORZA'"
-          :key="i"
-          class="force-letter"
-          aria-hidden="true"
-          >{{ letter }}</span
-        ><span class="force-ui" aria-hidden="true">UI</span>
-      </h1>
-      <img
-        class="force-mark"
-        src="/brand/symbol-coral.svg"
-        width="180"
-        height="180"
-        alt=""
-      />
-    </div>
+    <HeroWordmark />
     <div class="hero-statement">
       <h2>Give your interface<br /><em>some conviction.</em></h2>
       <div>
