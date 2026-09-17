@@ -6,8 +6,8 @@ interface Piece {
   name: string;
 }
 const pieces = shallowRef<Piece[]>([
-  { id: 1, name: "A clear starting point" },
-  { id: 2, name: "Room for your ideas" },
+  { id: 1, name: "Prototype the navigation" },
+  { id: 2, name: "Review the interaction" },
 ]);
 const draft = shallowRef("");
 const announcement = shallowRef("");
@@ -32,13 +32,9 @@ async function remove(id: number) {
 </script>
 <template>
   <section class="hero-assembly" aria-label="Interactive collection demo">
-    <div class="assembly-heading assembly-piece">
-      <span>Made of possibilities.</span
-      ><span class="assembly-index" aria-hidden="true">01 / 25</span>
-    </div>
-    <div class="assembly-title assembly-piece">
-      <h2>Put it<br /><em>together.</em></h2>
-      <img src="/brand/symbol-coral.svg" alt="" width="92" height="92" />
+    <div class="assembly-title">
+      <h3>Your collection</h3>
+      <span>{{ pieces.length }} / 4</span>
     </div>
     <form ref="form" class="assembly-form assembly-piece" @submit.prevent="add">
       <FzField
@@ -167,7 +163,7 @@ async function remove(id: number) {
   min-height: 64px;
   background: var(--fz-surface);
   border: 1px solid var(--fz-border);
-  border-left: 3px solid var(--fz-accent);
+
   border-radius: 3px;
 }
 .piece-number {

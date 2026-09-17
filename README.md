@@ -2,7 +2,7 @@
 
 Vue components with character. Typed APIs, scoped themes, and application-focused motion.
 
-[Documentation](https://forzaui.web.app) / [Playground](https://forzaui.web.app/playground) / [Installation](https://forzaui.web.app/guide/installation)
+[Documentation](https://forzaui.web.app) / [Components](https://forzaui.web.app/components) / [Playground](https://forzaui.web.app/playground) / [Why Forza?](https://forzaui.web.app/guide/why-forza) / [Installation](https://forzaui.web.app/guide/installation)
 
 An independent project by Christian D'Albano, developed with AI assistance. Includes 25 components, Ink and Paper themes, a source-copy CLI, and generated API metadata for people and agents.
 

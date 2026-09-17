@@ -25,8 +25,7 @@ onMounted(() => {
 </script>
 <template>
   <main class="playground">
-    <p class="kicker">A live workspace</p>
-    <h1>Get a feel for Forza.</h1>
+    <h1>Component workbench.</h1>
     <p class="playground-intro">
       Try the controls. Follow the state. Switch themes with the control in the
       header. Each example uses the same components you install.

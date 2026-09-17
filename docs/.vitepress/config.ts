@@ -74,7 +74,7 @@ export default defineConfig({
     siteTitle: false,
     nav: [
       { text: "Docs", link: "/guide/installation" },
-      { text: "Components", link: "/components/button" },
+      { text: "Components", link: "/components" },
       { text: "Playground", link: "/playground" },
       { text: "Changelog", link: "/changelog" },
     ],
@@ -87,6 +87,7 @@ export default defineConfig({
         text: "Start here",
         items: [
           { text: "Introduction", link: "/guide/introduction" },
+          { text: "Why Forza?", link: "/guide/why-forza" },
           { text: "Installation", link: "/guide/installation" },
           { text: "CLI", link: "/guide/cli" },
           { text: "Vue & Nuxt", link: "/guide/nuxt" },

@@ -4,7 +4,12 @@ for (const width of [390, 768, 1440])
   test("site layouts and contrast " + width, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width, height: 1000 });
-    for (const route of ["/", "/guide/installation", "/playground"]) {
+    for (const route of [
+      "/",
+      "/components",
+      "/guide/installation",
+      "/playground",
+    ]) {
       await page.goto(route);
       await page.locator("h1").first().waitFor();
       await page.evaluate(() => document.fonts.ready);
@@ -107,22 +112,39 @@ test("documentation search and keyboard select", async ({ page }) => {
     page.getByRole("option", { name: /Theming/ }).first(),
   ).toBeVisible();
 });
-test("scroll scene changes and reduced-motion reverts transforms", async ({
+test("presentation motion respects reduced motion and specimens expose real controls", async ({
   page,
 }) => {
   await page.goto("/");
-  await page.locator(".brand-scene").waitFor();
-  await page.locator(".component-gateway").scrollIntoViewIfNeeded();
+  await page.locator(".component-exhibit").scrollIntoViewIfNeeded();
+  await page
+    .getByRole("navigation", { name: "Live specimens" })
+    .getByRole("button", { name: "Drawer", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Open filters", exact: true }).click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await page.getByRole("button", { name: "View source", exact: true }).click();
+  await expect(page.locator("#specimen-code .code-filename")).toHaveText(
+    "DrawerExample.vue",
+  );
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect
     .poll(() =>
-      page
-        .locator(".scene-tile")
-        .first()
-        .evaluate((el) => el.style.transform),
+      page.locator(".force-mark").evaluate((el) => el.style.transform),
     )
     .toBe("");
-  await expect(page.locator(".scene-tile").first()).toBeVisible();
+  await expect(page.locator(".theme-copy h2")).toBeVisible();
+});
+
+test("component directory searches the shipped catalog", async ({ page }) => {
+  await page.goto("/components");
+  await page
+    .getByRole("searchbox", { name: "Search the library" })
+    .fill("drawer");
+  await expect(page.locator(".directory-item")).toHaveCount(1);
+  await page.getByRole("link", { name: "Try it", exact: false }).click();
+  await expect(page.locator(".playground-content h2")).toHaveText("FzDrawer");
 });
 
 test("hero collection and connected input focus", async ({ page }) => {
@@ -141,6 +163,14 @@ test("hero collection and connected input focus", async ({ page }) => {
     )
     .toBe("matrix(1, 0, 0, 1, 0, 0)");
   await page.getByRole("button", { name: "Add idea", exact: true }).click();
+  await page
+    .getByRole("group", { name: "Specimen theme" })
+    .getByRole("button", { name: "Paper", exact: true })
+    .click();
+  await expect(page.locator(".theme-canvas")).toHaveAttribute(
+    "data-theme",
+    "paper",
+  );
   await expect(page.getByRole("list", { name: "Your ideas" })).toContainText(
     "A better interaction",
   );
@@ -259,4 +289,3 @@ test("checkbox transitions reverse and honor reduced motion; popover has breathi
     "1px",
   );
 });
-
