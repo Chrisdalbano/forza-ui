@@ -11,7 +11,8 @@ BuildValue is a League of Legends item workspace by Chrisdalbano. It uses the pu
 - Search and filter items while keeping a six-slot build visible.
 - Compare costs, stats, and descriptions against a selected baseline.
 - Save named builds locally, undo draft changes, and share item-ID links.
-- Inspect recipes and cached effect studies in a drawer.
+- Preview item details on hover or keyboard focus, then inspect recipes and cached effect studies in a drawer.
+- Switch between cards and a dense table, search by stat, swap selected items, and rename saved builds.
 - Explore champion studies and research, with generated hypotheses labeled separately from calculated values.
 - Find a starting build within a budget using backend-calculated base-stat values.
 
@@ -104,3 +105,12 @@ GSAP is loaded only by the landing components. Application controls use Forza's 
 The application tests search, comparison, persistence, legacy migration, share validation, budget limits, analysis handoffs, overlay geometry, and keyboard focus restoration. It also checks seven routes at mobile, tablet, and desktop widths and exercises the built app offline.
 
 These are consumer checks, not a claim that every possible application or assistive technology has been tested. Run the same kinds of checks against your own data and workflows.
+
+
+## Preserve application features during a redesign
+
+A component migration needs a feature checklist alongside the new design. BuildValue's first Forza pass omitted hover previews and parts of the AI explanation, even though the backend and main routes still worked. A follow-up source comparison restored those interactions and added regression checks.
+
+The application composes Reka HoverCard primitives into an item-specific preview using Forza tokens. Hovering is read-only and performs no AI request. Pointer transit keeps the preview open while it is being read, Escape dismisses it, and touch users open the full item details with one tap. This wrapper lives in BuildValue; it is not an exported Forza component.
+
+The AI panel renders returned estimates, alternative stat equivalents, reasoning, confidence, and champion explanations. Pending, failed, empty, and ready results have distinct presentations. Estimates remain separate from the formula-based totals. Tests cover these states with fixtures; production-preview checks also use real cached responses.

@@ -2,6 +2,8 @@
 
 ## Documentation / September 17, 2026
 
+- Document the BuildValue feature-parity repair and item-preview composition.
+
 - Add the BuildValue application study, component mapping, and integration example.
 - Show BuildValue on the landing as a consumer of the published package.
 - No package API changes; the integration uses version 0.3.3.
